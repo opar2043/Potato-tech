@@ -14,10 +14,15 @@ const Navbar = () => {
           <a>About</a>
         </li>
       </Link>
+        <Link to={"/login"}>
+        <li className="before:w-0 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
+          <a>Log In</a>
+        </li>
+      </Link>
     </>
   return (
    <div>
-      <div className="navbar bg-base-100 border-b">
+      <div className="navbar bg-base-100 border-b md:px-16 px-3">
         <div className="md:flex-1  w-full">
           <span className="text-lg md:text-xl text-color font-extrabold">
             Potato Tech

@@ -11,6 +11,7 @@ import Error from './component/Root/Error.jsx';
 import Home from './component/Home/Home.jsx';
 import About from './component/About/About.jsx';
 import Allproducts from './component/AllProducts/Allproducts.jsx';
+import Login from './component/Provider/Login.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/allproducts',
         element: <Allproducts></Allproducts>
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
       },
     ]
   },

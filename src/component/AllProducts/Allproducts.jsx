@@ -13,7 +13,7 @@ const Allproducts = () => {
       <div className="my-8 flex justify-between">
         <div className="font-semibold">
           <Link to="/">
-            <span className="text-col">Home </span>
+            <span className="text-col hover:text-pink-500">Home </span>
           </Link>
           / All Products
         </div>

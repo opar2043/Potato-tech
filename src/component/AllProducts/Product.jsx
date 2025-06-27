@@ -12,8 +12,8 @@ const Product = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center text-col  mb-8">
+    <div className=" mx-auto px-4 py-8 mt-5 md:mt-10">
+      <h2 className="text-xl md:text-4xl font-bold text-center text-col  mb-8 ">
         Our Products
       </h2>
 
