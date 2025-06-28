@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Sarah Johnson",
+    "review": "Absolutely loved the product! Great quality and fast delivery.",
+    "rating": 5,
+    "image": "https://randomuser.me/api/portraits/women/45.jpg"
+  },
+  {
+    "name": "David Lee",
+    "review": "Good value for the price. Could be improved in packaging.",
+    "rating": 4,
+    "image": "https://randomuser.me/api/portraits/men/34.jpg"
+  },
+  {
+    "name": "Emily Carter",
+    "review": "It was okay, not exactly what I expected. Customer service helped though.",
+    "rating": 3,
+    "image": "https://randomuser.me/api/portraits/women/68.jpg"
+  },
+  {
+    "name": "Mohammed Ali",
+    "review": "Amazing experience! Will definitely buy again.",
+    "rating": 5,
+    "image": "https://randomuser.me/api/portraits/men/75.jpg"
+  },
+  {
+    "name": "Sophia Patel",
+    "review": "Product arrived damaged. Replacement was sent quickly. Appreciate the support.",
+    "rating": 4,
+    "image": "https://randomuser.me/api/portraits/women/23.jpg"
+  }
+]

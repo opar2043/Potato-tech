@@ -1,5 +1,4 @@
 
-import React from "react";
 
 const Banner = () => {
 
@@ -16,8 +15,8 @@ const Banner = () => {
                         <span className="text-col">Potato Tech</span> is here to be Your Tech partner</h1>
                 </div>
 
-                <div className=" rounded-md">
-                    <img src="https://images.unsplash.com/photo-1585079542156-2755d9c8a094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8a2V5Ym9hcmQlMjBiYW5uZXIlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" alt="image" className=" rounded md:ml-28"/>
+                <div className="w-full md:w-1/2 rounded-md">
+                    <img src="/public/Potato Tech logo.png" alt="image" className=" rounded "/>
                 </div>
             </header>
 
