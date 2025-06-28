@@ -8,7 +8,10 @@ const Dashboard = () => {
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
       <div className="md:w-64 w-full bg-color text-white p-6 space-y-4">
-        <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
+        <div className="flex justify-center gap-2">
+          <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
+          <img src="/public/Potato-logo-sqr png.png" alt="" className="h-12 w-12" />
+        </div>
         <ul className="space-y-3 text-white text-base">
           <li>
             <Link
