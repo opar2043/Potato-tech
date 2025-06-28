@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { Link } from "react-router-dom";
+import Title from "../Shared/Title";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -13,9 +14,7 @@ const Product = () => {
 
   return (
     <div className=" mx-auto px-4 py-8 mt-5 md:mt-10">
-      <h2 className="text-xl md:text-4xl font-bold text-center text-col  mb-8 ">
-        Our Products
-      </h2>
+         <Title head={'Our'} head2={'Products'}></Title>
 
       <div className="grid gap-6 grid-cols-1 md:grid-cols-3 ">
         {products &&

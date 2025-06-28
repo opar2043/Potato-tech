@@ -12,6 +12,11 @@ import Home from './component/Home/Home.jsx';
 import About from './component/About/About.jsx';
 import Allproducts from './component/AllProducts/Allproducts.jsx';
 import Login from './component/Provider/Login.jsx';
+import AuthProvider from './component/Firebase/AuthProvider.jsx';
+import AddProduct from './component/Dashboard/AddProduct/AddProduct.jsx';
+import AllProduct from './component/Dashboard/AllProduct/AllProduct.jsx';
+import Dashboard from './component/Dashboard/Dashboard2/Dashboard.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,10 +41,26 @@ const router = createBrowserRouter([
       },
     ]
   },
+{
+    path: '/dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+    {
+      path: "/dashboard/addproducts",
+      element: <AddProduct></AddProduct>
+    },
+    {
+      path: "/dashboard/allproduct",
+      element: <AllProduct></AllProduct>
+    },
+  ]
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+   <AuthProvider>
+      <RouterProvider router={router} />
+   </AuthProvider>
   </StrictMode>,
 )
