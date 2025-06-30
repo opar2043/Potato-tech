@@ -28,6 +28,8 @@ const [user, setUser] = useState(null);
      setLoading(true)
      return signInWithEmailAndPassword(auth , email , pass)
   }
+
+  
   useEffect(()=>{
      const unsub = onAuthStateChanged(auth , currentUser => {
           if(currentUser){

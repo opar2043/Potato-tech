@@ -1,7 +1,26 @@
-
 import { IoIosMenu } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../Hook/useAuth";
+import Swal from "sweetalert2";
 const Navbar = () => {
+  const { user, handleLogout } = useAuth();
+  const navigate = useNavigate();
+  function logOut() {
+    handleLogout()
+      .then(() => {
+        Swal.fire({
+          title: "Logout Successfull",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Try Again",
+          icon: "error",
+        });
+      });
+  }
   const link = (
     <>
       <Link to={"/allproducts"}>
@@ -14,14 +33,22 @@ const Navbar = () => {
           About
         </li>
       </Link>
-      <Link to={"/login"}>
-        <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
-          Log In
+      {!user ? (
+        <Link to={"/login"}>
+          <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
+            Log In
+          </li>
+        </Link>
+      ) : (
+        <li
+          onClick={logOut}
+          className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold"
+        >
+          Log Out
         </li>
-      </Link>
+      )}
       <Link to={"/dashboard"}>
         <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
-         
           Dashboard
         </li>
       </Link>
@@ -62,7 +89,7 @@ const Navbar = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            <ul className="menu items-center bg-base-200 text-base-content min-h-full w-80 p-4">
               {link}
             </ul>
           </div>

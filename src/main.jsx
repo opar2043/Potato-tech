@@ -16,6 +16,7 @@ import AuthProvider from './component/Firebase/AuthProvider.jsx';
 import AddProduct from './component/Dashboard/AddProduct/AddProduct.jsx';
 import AllProduct from './component/Dashboard/AllProduct/AllProduct.jsx';
 import Dashboard from './component/Dashboard/Dashboard2/Dashboard.jsx';
+import Register from './component/Provider/Register.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login></Login>
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
       },
     ]
   },
