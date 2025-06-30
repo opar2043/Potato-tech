@@ -1,26 +1,36 @@
 import React from "react";
-import { Link, useAsyncValue } from "react-router-dom";
+import { Link, useAsyncValue, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
+import useAxios from "../Hook/useAxios";
 
 const Register = () => {
-  const { handleRegister , user } = useAuth();
-  console.log(user);
+  const { handleRegister, user } = useAuth();
+  const axiosSecure = useAxios();
+  const navigate = useNavigate();
 
   function handleSignUp(e) {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const pass = e.target.pass.value;
+    const userObj = {
+      name,
+      email,
+      pass,
+      role: "customer",
+    };
 
     handleRegister(email, pass)
       .then((userCredential) => {
         const userData = userCredential.user;
-        Swal.fire({
-          title: "Registered",
-          icon: "success",
+        axiosSecure.post("/users", userObj).then((res) => {
+          Swal.fire({
+            title: "Registered",
+            icon: "success",
+          });
+          navigate("/");
         });
-        console.log(userData);
       })
       .catch((error) => {
         const errorMessage = error.message;

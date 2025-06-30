@@ -1,48 +1,59 @@
-
-
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
-import Swal from 'sweetalert2';
-import Title from '../Shared/Title';
-import { GoCodeReview } from 'react-icons/go';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import Swal from "sweetalert2";
+import Title from "../Shared/Title";
+import { GoCodeReview } from "react-icons/go";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import useAuth from "../Hook/useAuth";
+import useAxios from "../Hook/useAxios";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
-  const user = true;
+  // const user = true;
+
+  const { user } = useAuth();
+  const axiosSecure = useAxios();
 
   useEffect(() => {
-    fetch('/review.json')
-      .then(res => res.json())
-      .then(data => setReviews(data));
+    fetch("/review.json")
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
+    const review = e.target.review.value;
     document.getElementById("my_modal_1").close();
     e.target.reset();
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Thank you!',
-      text: 'Your review has been submitted.',
-      timer: 2000,
-      showConfirmButton: false
+    const reviewObj = {
+      rating,
+      review,
+      name: user.displayName || user.email.split("@")[0],
+      image: user.displayPhoto || 'https://i.ibb.co/bd2TzLB/shadow.jpg'
+    };
+
+    axiosSecure.post("/reviews", reviewObj).then((res) => {
+      Swal.fire({
+        icon: "success",
+        title: "Thank you!",
+        text: "Your review has been submitted.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
     });
   }
 
   function handleClose() {
     Swal.fire({
       title: "Please log in first",
-      icon: "error"
+      icon: "error",
     });
   }
 
@@ -51,7 +62,9 @@ const Review = () => {
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box relative">
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
           </form>
           <h3 className="font-bold text-lg mb-4">Submit Your Review</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -60,7 +73,7 @@ const Review = () => {
                 <span className="label-text">Rating</span>
               </label>
               <select
-                onChange={e => setRating(parseInt(e.target.value))}
+                onChange={(e) => setRating(parseInt(e.target.value))}
                 className="select select-bordered w-full"
                 required
               >
@@ -84,7 +97,9 @@ const Review = () => {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary w-full">Submit</button>
+            <button type="submit" className="btn btn-primary w-full">
+              Submit
+            </button>
           </form>
         </div>
       </dialog>
@@ -119,7 +134,11 @@ const Review = () => {
                   {item.name}
                 </h3>
                 <div className="flex justify-center">
-                  <Rating value={item.rating} readOnly style={{ maxWidth: 120 }} />
+                  <Rating
+                    value={item.rating}
+                    readOnly
+                    style={{ maxWidth: 120 }}
+                  />
                 </div>
                 <p className="text-gray-600 text-sm">{item.review}</p>
               </div>

@@ -13,3 +13,24 @@ const Title = ({head , head2 , para}) => {
 }
 
 export default Title
+
+
+
+// # HTTP client for API calls
+// npm install axios
+
+// # Toast notifications
+// npm install react-hot-toast
+
+// # Elegant pop-up alerts
+// npm install sweetalert2
+
+// # Firebase SDK
+// npm install firebase
+
+// # React Router for SPA routing
+// npm install react-router-dom
+
+// # Tailwind CSS (Optional - for utility-first styling)
+// npm install -D tailwindcss postcss autoprefixer
+// npx tailwindcss init -p
