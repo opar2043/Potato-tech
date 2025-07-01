@@ -1,5 +1,5 @@
 import React from "react";
-
+import img from '../../assets/Potato-logo-sqr-img.png'
 const Footer = () => {
   return (
     <div className="bg-neutral">
@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="footer flex md:flex-row flex-col md:justify-between text-neutral-content p-5
          md:p-10">
           <aside>
-            <img src="/public/Potato-logo-sqr png.png" alt="" className="w-16 h-16" />
+            <img src={img} alt="" className="w-16 h-16" />
             <p>
               Potato Tech
               <br />
@@ -57,7 +57,7 @@ const Footer = () => {
           <aside>
             <p>
               Copyright © {new Date().getFullYear()} - All right reserved by
-              ACME Industries Ltd
+              Potato Tech
             </p>
           </aside>
         </div>

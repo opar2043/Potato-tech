@@ -5,7 +5,7 @@ import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { user, handleLogin } = useAuth();
+  const { user, handleLogin, handleGoogle } = useAuth();
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +30,24 @@ const Login = () => {
       });
   }
 
-  function handleGoogle() {}
+  function handleGoogleLogin() {
+    handleGoogle()
+      .then((result) => {
+        const user = result.user;
+        Swal.fire({
+          title: "Logged In!",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          title: "Something Happen Wrong",
+          icon: "error",
+        });
+      });
+  }
 
   return (
     <div>
@@ -139,7 +156,7 @@ const Login = () => {
             </div>
             <div className="mx-auto">
               <button
-                onClick={() => handleGoogle()}
+                onClick={() => handleGoogleLogin()}
                 className="text-center btn btn-outline w-full border border-gray-400"
               >
                 <FaGoogle></FaGoogle>Google

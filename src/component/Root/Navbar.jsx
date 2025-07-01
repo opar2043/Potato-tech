@@ -2,6 +2,7 @@ import { IoIosMenu } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
+import img from "../../assets/Potato-logo-sqr-img.png";
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
@@ -58,9 +59,12 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-100 border-b md:px-16 px-3">
         <div className="md:flex-1  w-full">
-          <span className="text-lg md:text-xl text-color font-extrabold">
-            Potato Tech
-          </span>
+          <div className="flex items-center justify-normal gap-2">
+            <img src={img} alt="potato tech" className="w-9 h-9 rounded-full" />
+            <span className="text-lg  md:text-2xl text-col font-extrabold">
+              Potato Tech
+            </span>
+          </div>
         </div>
 
         {/* Window */}

@@ -16,10 +16,10 @@ const Product = () => {
     <div className=" mx-auto px-4 py-8 mt-5 md:mt-10">
          <Title head={'Our'} head2={'Products'}></Title>
 
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-3 ">
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-4 ">
         {products &&
           products
-            .slice(0, 6)
+            .slice(0, 4)
             .map((product, index) => <Card key={index} product={product} />)}
       </div>
       <div className="flex justify-center mt-10">
