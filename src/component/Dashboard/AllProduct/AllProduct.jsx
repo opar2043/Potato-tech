@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import useAxios from "../../Hook/useAxios";
 import Swal from "sweetalert2";
-
+import { Link } from "react-router-dom";
 
 const AllBook = () => {
-  const [products , setProducts] = useState([]);
-  const axiosSecure = useAxios()
+  const [products, setProducts] = useState([]);
+  const axiosSecure = useAxios();
 
   useEffect(() => {
     fetch("/product.json")
@@ -15,7 +15,6 @@ const AllBook = () => {
         setProducts(data);
       });
   }, []);
-
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -51,24 +50,31 @@ const AllBook = () => {
     });
   };
 
-
-
-   function handleEdit(){
-
-  }
+  function handleEdit() {}
 
   return (
     <div className=" min-h-screen bg-gray-100">
-      <h2 className="text-3xl font-bold text-center text-blue-700 mb-8"> All Items</h2>
+      <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
+        {" "}
+        All Items
+      </h2>
 
       <div className="overflow-x-auto shadow-lg rounded-xl bg-white p-4">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-100">
             <tr>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">#</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Title</th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Author</th>
-              <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Action</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                #
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                Title
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                Author
+              </th>
+              <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -76,24 +82,26 @@ const AllBook = () => {
               products.map((item, idx) => (
                 <tr key={item._id} className="hover:bg-blue-50 transition">
                   <td className="px-4 py-3 text-sm text-gray-600">{idx + 1}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-800">{item.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{item.category}</td>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-800">
+                    {item.name}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.category}
+                  </td>
                   <td className="px-4 py-3 text-center">
                     <div className="flex justify-center gap-4">
-
                       <button
                         title="Delete"
-                        className="text-blue-600 hover:text-blue-800 transition"
+                        className=" text-red-600 hover:text-red-800 transition"
                         onClick={() => handleDelete(item._id)}
                       >
-                        <FaEdit></FaEdit>
+                        <FaTrash></FaTrash>
                       </button>
-                       <button
-                        className="text-red-600 hover:text-red-800 transition"
-                        onClick={() => handleEdit(item._id)}
-                      >
-                        <FaTrash />
-                      </button>
+                      <Link to={`/dashboard/editproducts/${item._id}`}>
+                        <button className="text-blue-600 hover:text-blue-800 transition">
+                          <FaEdit></FaEdit>
+                        </button>
+                      </Link>
                     </div>
                   </td>
                 </tr>

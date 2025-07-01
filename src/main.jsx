@@ -17,6 +17,7 @@ import AddProduct from './component/Dashboard/AddProduct/AddProduct.jsx';
 import AllProduct from './component/Dashboard/AllProduct/AllProduct.jsx';
 import Dashboard from './component/Dashboard/Dashboard2/Dashboard.jsx';
 import Register from './component/Provider/Register.jsx';
+import EditProduct from './component/Dashboard/AllProduct/EditProduct.jsx';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
     {
       path: "/dashboard/addproducts",
       element: <AddProduct></AddProduct>
+    },
+    {
+      path: "/dashboard/editproducts/:id",
+      element: <EditProduct></EditProduct>
     },
     {
       path: "/dashboard/allproduct",
