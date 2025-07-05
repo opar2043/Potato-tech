@@ -20,6 +20,7 @@ import Register from './component/Provider/Register.jsx';
 import EditProduct from './component/Dashboard/AllProduct/EditProduct.jsx';
 import User from './component/Dashboard/User/User.jsx';
 import ViewCard from './component/AllProducts/ViewCard.jsx';
+import Checkout from './component/Checkout/Checkout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/view/:id',
         element: <ViewCard></ViewCard>
+      },
+      {
+        path: '/checkout',
+        element: <Checkout></Checkout>
       },
     ]
   },
