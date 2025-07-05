@@ -104,7 +104,7 @@ const Allproducts = () => {
         </div>
       </div>
 
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-4 ">
+      <div className="grid gap-6 grid-cols-2 md:grid-cols-4 ">
         {filterItem && filterItem.length > 0 ? (
           filterItem.map((product, index) => (
             <Card key={index} product={product} />

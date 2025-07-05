@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { MdAddBox, MdLibraryBooks, MdPeople } from "react-icons/md";
 import { AiOutlineHome } from "react-icons/ai";
+import { FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
@@ -27,6 +28,14 @@ const Dashboard = () => {
               className="flex items-center gap-2 hover:bg-pink-600 rounded px-3 py-2"
             >
               <MdLibraryBooks size={20} /> All Product
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/dashboard/user"
+              className="flex items-center gap-2 hover:bg-pink-600 rounded px-3 py-2"
+            >
+              <FaUser size={20} /> Customers
             </Link>
           </li>
           <li>

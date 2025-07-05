@@ -13,6 +13,7 @@
     "@smastrom/react-rating": "^1.5.0",
     "axios": "^1.10.0",
     "firebase": "^11.9.1",
+    "framer-motion": "^12.23.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",

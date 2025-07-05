@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Rafiul Islam",
+    "email": "rafiul@example.com",
+    "pass": "rafi1234",
+    "role": "customer"
+  },
+  {
+    "name": "Tanisha Ahmed",
+    "email": "tanisha@example.com",
+    "pass": "tanisha5678",
+    "role": "customer"
+  },
+  {
+    "name": "Shakib Hossain",
+    "email": "shakib@example.com",
+    "pass": "shakibpass",
+    "role": "customer"
+  },
+  {
+    "name": "Nabila Khatun",
+    "email": "nabila@example.com",
+    "pass": "nabila321",
+    "role": "admin"
+  },
+  {
+    "name": "Farhan Chowdhury",
+    "email": "farhan@example.com",
+    "pass": "farhanpass99",
+    "role": "customer"
+  }
+]

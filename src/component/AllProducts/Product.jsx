@@ -16,7 +16,7 @@ const Product = () => {
     <div className=" mx-auto px-4 py-8 mt-5 md:mt-10">
          <Title head={'Our'} head2={'Products'}></Title>
 
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-4 ">
+      <div className="grid gap-6 grid-cols-2 md:grid-cols-4 ">
         {products &&
           products
             .slice(0, 4)

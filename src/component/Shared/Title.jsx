@@ -34,3 +34,6 @@ export default Title
 // # Tailwind CSS (Optional - for utility-first styling)
 // npm install -D tailwindcss postcss autoprefixer
 // npx tailwindcss init -p
+
+//npm install framer-motion
+

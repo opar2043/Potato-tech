@@ -50,71 +50,85 @@ const AllBook = () => {
     });
   };
 
-  function handleEdit() {}
+  function handleEdit() {
+
+  }
 
   return (
-    <div className=" min-h-screen bg-gray-100">
-      <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
-        {" "}
-        All Items
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-10 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-10 drop-shadow">
+          📦 All Items
+        </h2>
 
-      <div className="overflow-x-auto shadow-lg rounded-xl bg-white p-4">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-blue-100">
-            <tr>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                #
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                Title
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                Author
-              </th>
-              <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {products.length > 0 ? (
-              products.map((item, idx) => (
-                <tr key={item._id} className="hover:bg-blue-50 transition">
-                  <td className="px-4 py-3 text-sm text-gray-600">{idx + 1}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-800">
-                    {item.name}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-gray-700">
-                    {item.category}
-                  </td>
-                  <td className="px-4 py-3 text-center">
-                    <div className="flex justify-center gap-4">
-                      <button
-                        title="Delete"
-                        className=" text-red-600 hover:text-red-800 transition"
-                        onClick={() => handleDelete(item._id)}
-                      >
-                        <FaTrash></FaTrash>
-                      </button>
-                      <Link to={`/dashboard/editproducts/${item._id}`}>
-                        <button className="text-blue-600 hover:text-blue-800 transition">
-                          <FaEdit></FaEdit>
+        <div className="overflow-x-auto rounded-xl shadow-2xl bg-white p-6">
+          <table className="min-w-full table-auto border-collapse">
+            <thead className="bg-blue-100">
+              <tr>
+                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                  #
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                  Title
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                  Author
+                </th>
+                <th className="px-6 py-4 text-center text-sm font-bold text-gray-700 uppercase">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 text-sm">
+              {products.length > 0 ? (
+                products.map((item, idx) => (
+                  <tr
+                    key={item._id}
+                    className="hover:bg-blue-50 transition duration-200"
+                  >
+                    <td className="px-6 py-4 text-gray-600 font-medium">
+                      {idx + 1}
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-gray-800">
+                      {item.name}
+                    </td>
+                    <td className="px-6 py-4 text-gray-700">
+                      {item.category}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <div className="flex justify-center gap-6">
+                        <button
+                          title="Delete"
+                          onClick={() => handleDelete(item._id)}
+                          className="text-red-600 hover:text-red-800 hover:scale-110 transition-transform"
+                        >
+                          <FaTrash size={18} />
                         </button>
-                      </Link>
-                    </div>
+                        <Link to={`/dashboard/editproducts/${item._id}`}>
+                          <button
+                            title="Edit"
+                            className="text-blue-600 hover:text-blue-800 hover:scale-110 transition-transform"
+                          >
+                            <FaEdit size={18} />
+                          </button>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="text-center py-6 text-gray-500 font-medium"
+                  >
+                    No items available.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="text-center py-4 text-gray-500">
-                  No items available.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

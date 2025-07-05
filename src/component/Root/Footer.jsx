@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="footer flex md:flex-row flex-col md:justify-between text-neutral-content p-5
          md:p-10">
           <aside>
-            <img src={img} alt="" className="w-16 h-16" />
+            <img src={img} alt="" className="w-16 h-16 rounded-full" />
             <p>
               Potato Tech
               <br />

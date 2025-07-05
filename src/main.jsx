@@ -18,6 +18,8 @@ import AllProduct from './component/Dashboard/AllProduct/AllProduct.jsx';
 import Dashboard from './component/Dashboard/Dashboard2/Dashboard.jsx';
 import Register from './component/Provider/Register.jsx';
 import EditProduct from './component/Dashboard/AllProduct/EditProduct.jsx';
+import User from './component/Dashboard/User/User.jsx';
+import ViewCard from './component/AllProducts/ViewCard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register></Register>
       },
+      {
+        path: '/view/:id',
+        element: <ViewCard></ViewCard>
+      },
     ]
   },
 {
@@ -62,6 +68,10 @@ const router = createBrowserRouter([
     {
       path: "/dashboard/allproduct",
       element: <AllProduct></AllProduct>
+    },
+    {
+      path: "/dashboard/user",
+      element: <User></User>
     },
   ]
   }
