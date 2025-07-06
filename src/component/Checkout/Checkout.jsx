@@ -353,7 +353,7 @@ const Checkout = () => {
   }, [id]);
 
   const myProduct = product.find((pro) => pro._id == id) || {};
-  const { name, price, description, category, image } = myProduct || {};
+  const { name, price, image } = myProduct || {};
 
   const total = price * quantity;
 
@@ -392,6 +392,8 @@ const Checkout = () => {
           total,
         };
 
+        console.log(orderObj);
+
         axiosSecure.post("/orders", orderObj).then(() => {
           Swal.fire({
             title: "Order Placed",
@@ -408,7 +410,7 @@ const Checkout = () => {
         className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl space-y-6 border border-pink-200"
       >
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-4">
-          Checkout Page
+          bKash Payment Page
         </h2>
 
         <div className="flex flex-col md:flex-row gap-1">
@@ -572,9 +574,22 @@ const Checkout = () => {
           </ul>
 
           <div className="space-y-4 text-center">
-            <p className="block rounded border border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400">
-              01814482832
-            </p>
+<p
+  onClick={() => {
+    navigator.clipboard.writeText("01814482832");
+    Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Number Copied",
+  showConfirmButton: false,
+  timer: 1000
+});
+  }}
+  className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
+>
+  01814482832
+</p>
+
             <p className="block rounded bg-pink-600 px-5 py-3 text-sm text-white hover:bg-pink-700">
               Make Payment to Bkash
             </p>
