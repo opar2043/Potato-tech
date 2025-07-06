@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <ViewCard></ViewCard>
       },
       {
-        path: '/checkout',
+        path: '/checkout/:id',
         element: <Checkout></Checkout>
       },
     ]

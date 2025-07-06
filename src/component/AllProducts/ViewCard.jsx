@@ -75,7 +75,7 @@ const ViewCard = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-3">
-          <Link to={'/checkout'} className="w-full">
+          <Link to={`/checkout/${id}`} className="w-full">
             <button className="w-full mt-6 px-6 py-3 bg-[#0FABCA] hover:bg-blue-600 text-white rounded-md hover:bg-[#0FABCA]/90">
             Go to Checkout Page
           </button>
