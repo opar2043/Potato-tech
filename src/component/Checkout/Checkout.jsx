@@ -59,7 +59,6 @@
 //           upzila
 //         };
 
-
 //         console.log(orderObj);
 
 //         axiosSecure.post("/orders", orderObj).then(() => {
@@ -82,8 +81,6 @@
 //         <h2 className="text-3xl font-bold text-center text-blue-700 mb-4">
 //           Checkout Page
 //         </h2>
-
-
 
 //         <div className="flex flex-col md:flex-row gap-1 ">
 //         {/* Name */}
@@ -113,10 +110,6 @@
 //           </div>
 
 //         </div>
-
-
-
-
 
 //         <div className="flex flex-col md:flex-row gap-1 ">
 //           {/* Mobile */}
@@ -279,14 +272,14 @@
 
 //           <div className="space-y-4 text-center">
 //             <p
-              
+
 //               className="block rounded-sm border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400"
 //             >
 //               01814482832
 //             </p>
 
 //             <p
-              
+
 //               className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
 //             >
 //               Make Payment to Bkash
@@ -307,28 +300,6 @@
 
 // export default Checkout;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
@@ -343,6 +314,7 @@ const Checkout = () => {
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [division, setDivision] = useState("Dhaka");
+  const [item , setItem] = useState(1)
 
   useEffect(() => {
     fetch("/product.json")
@@ -353,13 +325,13 @@ const Checkout = () => {
   }, [id]);
 
   const myProduct = product.find((pro) => pro._id == id) || {};
-  const { name, price, image } = myProduct || {};
-
+  const { name, price, image } = myProduct || {} ;
   const total = price * quantity;
+  const amount = price * item;
 
   function handleAdd(e) {
     e.preventDefault();
-    const cusname = e.target.name.value;
+    const cusname = e.target.cusname.value;
     const mobile = e.target.mobile.value;
     const district = e.target.district.value;
     const trx = e.target.trx.value;
@@ -388,8 +360,9 @@ const Checkout = () => {
           email,
           division,
           upzila,
-          quantity,
-          total,
+          item,
+          amount,
+          name
         };
 
         console.log(orderObj);
@@ -420,7 +393,7 @@ const Checkout = () => {
             </label>
             <input
               type="text"
-              name="name"
+              name="cusname"
               requipink
               placeholder="Your full name"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
@@ -463,6 +436,37 @@ const Checkout = () => {
               requipink
               placeholder="Submit Your Transaction ID"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-1">
+          <div className="w-full">
+            <label className="block text-sm font-semibold text-gray-700">
+              Quantity
+            </label>
+
+            <input
+              type="number"
+              name="quantiy"
+              requipink
+              onChange={e=> setItem(e.target.value)}
+              placeholder="product quantity"
+              className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
+            />
+          </div>
+          <div className="w-full">
+            <label className="block text-sm font-semibold text-gray-700">
+              Product Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              requipink
+              disabled
+              defaultValue={name}
+              placeholder="Product Name"
+              className="w-full mt-1 p-3 border bg-gray-100 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
           </div>
         </div>
@@ -541,10 +545,16 @@ const Checkout = () => {
 
       <div className="relative w-full h-full md:w-2/3 border border-pink-300 bg-pink-50 px-4 py-8 sm:px-6 lg:px-8 rounded-xl">
         <div className="mt-4 space-y-6">
-          <h2 className="text-lg font-semibold text-pink-700">Make Payment First then Fill The Form</h2>
+          <h2 className="text-lg font-semibold text-pink-700">
+            Make Payment First then Fill The Form
+          </h2>
           <ul className="space-y-4">
             <li className="flex items-center gap-4">
-              <img alt="" src={image} className="size-16 rounded object-cover border" />
+              <img
+                alt=""
+                src={image}
+                className="size-16 rounded object-cover border"
+              />
               <div>
                 <h3 className="text-sm text-gray-900 font-semibold">{name}</h3>
                 <dl className="mt-0.5 space-y-px text-[13px] text-gray-600">
@@ -574,21 +584,21 @@ const Checkout = () => {
           </ul>
 
           <div className="space-y-4 text-center">
-<p
-  onClick={() => {
-    navigator.clipboard.writeText("01814482832");
-    Swal.fire({
-  position: "top-end",
-  icon: "success",
-  title: "Number Copied",
-  showConfirmButton: false,
-  timer: 1000
-});
-  }}
-  className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
->
-  01814482832
-</p>
+            <p
+              onClick={() => {
+                navigator.clipboard.writeText("01814482832");
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Number Copied",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              }}
+              className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
+            >
+              01814482832
+            </p>
 
             <p className="block rounded bg-pink-600 px-5 py-3 text-sm text-white hover:bg-pink-700">
               Make Payment to Bkash

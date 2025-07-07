@@ -21,6 +21,7 @@ import EditProduct from './component/Dashboard/AllProduct/EditProduct.jsx';
 import User from './component/Dashboard/User/User.jsx';
 import ViewCard from './component/AllProducts/ViewCard.jsx';
 import Checkout from './component/Checkout/Checkout.jsx';
+import Order from './component/Dashboard/Order/Order.jsx';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
     {
       path: "/dashboard/user",
       element: <User></User>
+    },
+    {
+      path: "/dashboard/order",
+      element: <Order></Order>
     },
   ]
   }
