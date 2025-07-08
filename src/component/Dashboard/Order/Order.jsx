@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null); // ✅ Fix: state for modal data
+  const [selectedOrder, setSelectedOrder] = useState(null); 
 
   useEffect(() => {
     fetch("/order.json")
@@ -24,69 +24,100 @@ const Order = () => {
           📦 All Order
         </h2>
 
-        {/* ✅ Modal */}
-<dialog id="my_modal_3" className="modal backdrop-blur-sm">
-  <div className="modal-box rounded-2xl shadow-2xl border border-blue-200 bg-white/80 backdrop-blur-md transition-all duration-300">
+    <dialog id="my_modal_3" className="modal">
+      <div className="modal-box w-11/12 max-w-4xl p-0">
+        <form method="dialog">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+        </form>
 
-    {/* Close Button */}
-    <form method="dialog">
-      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 hover:bg-red-100">
-        ✕
-      </button>
-    </form>
+        {selectedOrder && (
+          <section>
+            <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+              <div className="mx-auto max-w-3xl">
+                <header className="text-center">
+                  <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
+                </header>
 
-    {selectedOrder && (
-      <section>
-        <div className="px-4 py-6">
-          <header className="text-center mb-6">
-            <h1 className="text-3xl font-extrabold text-blue-800 drop-shadow-sm">
-              🧾 Order Summary
-            </h1>
-            <p className="text-sm text-gray-600 mt-1">Details of the selected order</p>
-          </header>
+                <div className="mt-8">
+                  <ul className="space-y-4">
+                    <li className="flex items-center gap-4">
+                      <img
+                        src={selectedOrder.imageTrx}
+                        alt="Transaction"
+                        className="size-16 rounded-sm object-cover"
+                      />
 
-          <div className="card bg-white rounded-xl shadow-md overflow-hidden">
-            <figure className="px-6 pt-6">
-              <img
-                src={selectedOrder.imageTrx}
-                alt="Transaction"
-                className="rounded-xl w-full max-h-60 object-cover border border-gray-200 shadow-sm"
-              />
-            </figure>
+                      <div>
+                        <h3 className=" text-gray-900">{selectedOrder.name}</h3>
+                        <dl className="mt-0.5 space-y-px text-[12px] text-gray-600">
+                          <div>
+                            <dt className="inline">Customer:</dt>
+                            <dd className="inline"> {selectedOrder.cusname || "N/A"}</dd>
+                          </div>
+                          <div>
+                            <dt className="inline">Transaction:</dt>
+                            <dd className="inline font-semibold bg-gray-400/35 border border-gray-300 ml-1 rounded-md py-1 px-3 text-gray-700"> {selectedOrder.trx}</dd>
+                          </div>
+                        </dl>
+                      </div>
 
-            <div className="card-body space-y-2">
-              <h2 className="card-title text-pink-600 text-xl">
-                {selectedOrder.name || "Product Name"}
-              </h2>
+                      <div className="divider bg-black"></div>
 
-              <ul className="text-sm text-gray-700 space-y-1 grid grid-cols-2 gap-1">
-                <li><strong>👤 Customer:</strong> {selectedOrder.cusname || "N/A"}</li>
-                <li><strong>📞 Mobile:</strong> {selectedOrder.mobile}</li>
-                <li><strong>📧 Email:</strong> {selectedOrder.email || "N/A"}</li>
-                <li><strong>🔁 Transaction ID:</strong> {selectedOrder.trx}</li>
-                <li><strong>💰 Amount:</strong> ${selectedOrder.amount || 0}</li>
-                <li><strong>🛒 Item Count:</strong> {selectedOrder.item || 0}</li>
-                <li><strong>📍 Address:</strong> {selectedOrder.address}</li>
-                <li><strong>🗺️ Upazila:</strong> {selectedOrder.upzila}</li>
-                <li><strong>🏙️ District:</strong> {selectedOrder.district}</li>
-                <li><strong>🌐 Division:</strong> {selectedOrder.division}</li>
-              </ul>
+                      <div className="flex flex-1 items-center justify-end gap-2">
+                        <span className="text-sm text-gray-700">Qty: {selectedOrder.item || 1}</span>
+                        <span className="text-xs text-gray-700">${selectedOrder.amount || 0}</span>
+                      </div>
+                    </li>
+                  </ul>
 
-              <div className="card-actions justify-end mt-4">
-                <span className="badge badge-success badge-lg text-white px-4 py-2">
-                  ✅ Paid
-                </span>
-                <span className="badge badge-info badge-lg px-4 py-2">
-                  📍 {selectedOrder.division}
-                </span>
+                  <div className="mt-8 flex justify-end border-t border-gray-100 pt-8 gap-3">
+                    <div>
+                       <img src={selectedOrder.imageTrx} alt="" />
+                    </div>
+
+                    <div className="w-screen max-w-lg space-y-4">
+                      <dl className="space-y-0.5 text-sm text-gray-700">
+                        <div className="flex justify-between">
+                          <dt>Customer</dt>
+                          <dd>{selectedOrder.cusname || "N/A"}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt>Mobile</dt>
+                          <dd>{selectedOrder.mobile}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt>Email</dt>
+                          <dd>{selectedOrder.email || "N/A"}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt>Address</dt>
+                          <dd>{selectedOrder.address}, {selectedOrder.upzila}, {selectedOrder.district}</dd>
+                        </div>
+                        <div className="flex justify-between !text-base font-medium">
+                          <dt>Total</dt>
+                          <dd>${selectedOrder.amount || 0}</dd>
+                        </div>
+                      </dl>
+
+                      <div className="flex justify-end">
+                        <p
+                          
+                          className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                        >
+                          Payment Recieved
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-    )}
-  </div>
-</dialog>
+          </section>
+        )}
+      </div>
+    </dialog>
 
 
         {/* ✅ Orders Table */}
@@ -99,6 +130,9 @@ const Order = () => {
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
                   Product
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                  Trx No.
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
                   Customer
@@ -119,16 +153,19 @@ const Order = () => {
                       {idx + 1}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-4">
+                      <div className="flex flex-col gap-1 ">
                         <img
                           src={item.imageTrx}
                           alt="Transaction"
                           className="w-14 h-14 rounded object-cover border border-gray-300 shadow-sm"
                         />
-                        <p className="font-semibold text-gray-800">
+                        <p className="font-semibold text-xs text-gray-800">
                           {item.name}
                         </p>
                       </div>
+                    </td>
+                    <td className="font-semibold text-gray-800">
+                      {item.trx}
                     </td>
                     <td className="font-semibold text-gray-800">
                       {item.cusname || "Random Customer"}

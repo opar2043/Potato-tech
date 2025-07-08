@@ -1,58 +1,91 @@
 [
   {
-    "_id": 1,
-    "name": "Wireless Bluetooth Headphones",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Fwww.skyland.com.bd%2Fimage%2Fcache%2Fcatalog%2FOctober23%2FPC-Power-604-Office-Keyboard-Black-1000x1000.jpg&imgrefurl=https%3A%2F%2Fwww.skyland.com.bd%2Fpc-power-604-office-keyboard-black&docid=wL5LP5cbQGFd-M&tbnid=hyzRH1x3E98YmM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECBsQAA..i&w=1000&h=1000&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECBsQAA",
-    "price": 59.99,
-    "category": "Electronics",
-    "description": "Comfortable over-ear headphones with deep bass and 20-hour battery life."
-  },
-  {
-    "_id": 2,
+    "_id": "64b7f0d5a123456789abc001",
     "name": "Eco-Friendly Water Bottle",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Fwww.skyland.com.bd%2Fimage%2Fcache%2Fcatalog%2FOctober23%2FPC-Power-604-Office-Keyboard-Black-1000x1000.jpg&imgrefurl=https%3A%2F%2Fwww.skyland.com.bd%2Fpc-power-604-office-keyboard-black&docid=wL5LP5cbQGFd-M&tbnid=hyzRH1x3E98YmM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECBsQAA..i&w=1000&h=1000&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECBsQAA",
-    "price": 15.49,
     "category": "Home & Kitchen",
-    "description": "Reusable stainless steel water bottle that keeps drinks cold for 24 hours."
+    "description": "Reusable stainless steel bottle...",
+    "images": [
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 15.49 },
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 16.00 },
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 14.75 }
+    ],
+    "sub" : "fsl"
   },
   {
-     "_id": 3,
-    "name": "Men's Running Shoes",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fimage%2Fcache%2Fcatalog%2FAccessories%2Fkeyboard%2Fa4tech%2F102%2F4200n-2-500x5001-600x500h.jpg.webp&imgrefurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fa4-tech-4200n-wireless-combo&docid=vJEe0N261b2rRM&tbnid=xY3TY0HNhqzQjM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA..i&w=600&h=500&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA",
-    "price": 89.95,
-    "category": "Fashion",
-    "description": "Lightweight and breathable running shoes with shock absorption."
+    "_id": "64b7f0d5a123456789abc002",
+    "name": "Ergonomic Office Chair",
+    "category": "Furniture",
+    "description": "Comfortable mesh back chair for long hours...",
+    "images": [
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 120.00 },
+      { "img": "https://i.ibb.co/vjDpNRm/chair2.jpg", "price": 130.50 },
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 115.99 }
+    ]
   },
   {
-     "_id": 4,
-    "name": "Smart LED Desk Lamp",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Ffourstaritbd.com%2Fwp-content%2Fuploads%2F2023%2F12%2Fredragon-k633-ryze-rgb-huano-red-1.webp&imgrefurl=https%3A%2F%2Ffourstaritbd.com%2Fredragon-k633-ryze-mechanical-keyboard%2F&docid=Lu3kwCsMV3y3XM&tbnid=qSpCTJw-f0EJGM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECB0QAA..i&w=900&h=900&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECB0QAA",
-    "price": 32.00,
-    "category": "Office Supplies",
-    "description": "Touch-sensitive LED lamp with brightness adjustment and USB charging port."
-  },
-  {
-     "_id": 5,
-    "name": "Organic Green Tea Bags",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fimage%2Fcache%2Fcatalog%2FAccessories%2Fkeyboard%2Fa4tech%2F102%2F4200n-2-500x5001-600x500h.jpg.webp&imgrefurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fa4-tech-4200n-wireless-combo&docid=vJEe0N261b2rRM&tbnid=xY3TY0HNhqzQjM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA..i&w=600&h=500&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA",
-    "price": 12.75,
-    "category": "Grocery",
-    "description": "100% organic green tea with antioxidants and a refreshing taste."
-  },
-  {
-     "_id": 6,
-    "name": "Gaming Mouse with RGB Lights",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Ffourstaritbd.com%2Fwp-content%2Fuploads%2F2023%2F12%2Fredragon-k633-ryze-rgb-huano-red-1.webp&imgrefurl=https%3A%2F%2Ffourstaritbd.com%2Fredragon-k633-ryze-mechanical-keyboard%2F&docid=Lu3kwCsMV3y3XM&tbnid=qSpCTJw-f0EJGM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECB0QAA..i&w=900&h=900&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECB0QAA",
-    "price": 27.99,
+    "_id": "64b7f0d5a123456789abc003",
+    "name": "Bluetooth Noise-Canceling Headphones",
     "category": "Electronics",
-    "description": "Ergonomic gaming mouse with 7 programmable buttons and customizable lighting."
+    "description": "Crystal-clear sound with active noise cancellation...",
+    "images": [
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 89.99 },
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 92.00 },
+      { "img": "https://i.ibb.co/nzHcRM5/headphone3.jpg", "price": 85.50 }
+    ]
   },
   {
-     "_id": 7,
-    "name": "Portable Mini Projector",
-    "image": "https://www.google.com/imgres?q=keyboard%20price%20in%20bd&imgurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fimage%2Fcache%2Fcatalog%2FAccessories%2Fkeyboard%2Fa4tech%2F102%2F4200n-2-500x5001-600x500h.jpg.webp&imgrefurl=https%3A%2F%2Fwww.pchouse.com.bd%2Fa4-tech-4200n-wireless-combo&docid=vJEe0N261b2rRM&tbnid=xY3TY0HNhqzQjM&vet=12ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA..i&w=600&h=500&hcb=2&ved=2ahUKEwiWn9Cpj5KOAxVLs1YBHTIODOoQM3oECCQQAA",
-    "price": 129.99,
+    "_id": "64b7f0d5a123456789abc004",
+    "name": "Non-Stick Cookware Set",
+    "category": "Kitchen",
+    "description": "Durable non-stick pans and pots set...",
+    "images": [
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 75.00 },
+      { "img": "https://i.ibb.co/DRTrRH3/cookware2.jpg", "price": 72.99 },
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 79.95 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc005",
+    "name": "Portable Laptop Stand",
+    "category": "Accessories",
+    "description": "Adjustable height and angle, perfect for work...",
+    "images": [
+      { "img": "https://i.ibb.co/qkFsMZp/laptopstand1.jpg", "price": 29.99 },
+      { "img": "https://i.ibb.co/RNN4FD0/laptopstand2.jpg", "price": 31.25 },
+      { "img": "https://i.ibb.co/hcx2N1K/laptopstand3.jpg", "price": 28.49 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc006",
+    "name": "Smart LED Light Strip",
+    "category": "Lighting",
+    "description": "Voice-controlled RGB light strip with app support...",
+    "images": [
+      { "img": "https://i.ibb.co/Kyq5r8X/lightstrip1.jpg", "price": 22.00 },
+      { "img": "https://i.ibb.co/zRyK7t3/lightstrip2.jpg", "price": 21.50 },
+      { "img": "https://i.ibb.co/mHRzhCm/lightstrip3.jpg", "price": 23.25 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc007",
+    "name": "Compact Air Purifier",
+    "category": "Home Appliances",
+    "description": "HEPA filter air purifier for small rooms...",
+    "images": [
+      { "img": "https://i.ibb.co/Z6DJcbn/airpurifier1.jpg", "price": 59.99 },
+      { "img": "https://i.ibb.co/9rGgmMN/airpurifier2.jpg", "price": 62.00 },
+      { "img": "https://i.ibb.co/WxpjKb3/airpurifier3.jpg", "price": 58.75 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc008",
+    "name": "Wireless Charging Pad",
     "category": "Electronics",
-    "description": "Compact projector compatible with smartphones and laptops, great for movies."
+    "description": "Fast-charging pad for Qi-enabled devices...",
+    "images": [
+      { "img": "https://i.ibb.co/BggBNmX/charger1.jpg", "price": 18.00 },
+      { "img": "https://i.ibb.co/qBZnBQ8/charger2.jpg", "price": 19.25 },
+      { "img": "https://i.ibb.co/6Dw6gMp/charger3.jpg", "price": 17.50 }
+    ]
   }
 ]

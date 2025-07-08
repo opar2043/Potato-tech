@@ -18,10 +18,10 @@ const Allproducts = () => {
     const timer = setTimeout(() => {
       setDbSearch(search.trim().toLowerCase());
     }, 500);
-
     return () => clearTimeout(timer);
   }, [search]);
 
+  console.log(products);
   const filterItem =
     products &&
     products.filter(
@@ -36,9 +36,13 @@ const Allproducts = () => {
     let sortedProducts = [...products];
 
     if (value === "lowToHigh") {
-      sortedProducts.sort((a, b) => a.price - b.price);
+      sortedProducts.sort(
+        (a, b) => (a.images?.[0]?.price || 0) - (b.images?.[0]?.price || 0)
+      );
     } else if (value === "highToLow") {
-      sortedProducts.sort((a, b) => b.price - a.price);
+      sortedProducts.sort(
+        (a, b) => (b.images?.[0]?.price || 0) - (a.images?.[0]?.price || 0)
+      );
     }
 
     setProducts(sortedProducts);

@@ -3,7 +3,10 @@ import { MdOutlineTimer } from "react-icons/md";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 const Card = ({ product }) => {
-  const { name, price, description, category, image , id, _id } = product;
+  const { name, price, description, category, images, _id } = product;
+    const firstImage = images?.[0]?.img;
+    const firstPrice = images?.[0]?.price;
+
   return (
     <motion.div
       initial={{ y: 0, opacity: 0 }}
@@ -14,7 +17,7 @@ const Card = ({ product }) => {
     >
       {/*  image  */}
       <img
-        src="https://i.ibb.co/vD03dHn/12.jpg"
+        src={firstImage}
         alt="animated_card"
         className="w-full h-full object-cover group-hover:scale-[1.1] transition-all duration-700"
       />
@@ -27,7 +30,7 @@ const Card = ({ product }) => {
         {/* <p className="text-center z-[1-] opacity-0 group-hover:z-20 group-hover:opacity-100 transition-all duration-700 text-white text-[0.9rem]">
           {description}
         </p> */}
-       <Link to={`/view/${id || _id}`}>
+       <Link to={`/view/${ _id}`}>
                  <button className="bg-color z-[1-] opacity-0 group-hover:z-20 group-hover:opacity-100 px-3 py-2 mt-3 hover:bg-gray-900 transition-all duration-1000 text-white rounded-md text-[0.9rem] font-semibold">
           Details
         </button>
