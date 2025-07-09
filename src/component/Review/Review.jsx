@@ -16,15 +16,16 @@ const Review = () => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   // const user = true;
-
-  const { user } = useAuth();
-  const axiosSecure = useAxios();
-
-  useEffect(() => {
+    useEffect(() => {
     fetch("/review.json")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
+
+  const { user } = useAuth();
+  const axiosSecure = useAxios();
+
+
 
   function handleSubmit(e) {
     e.preventDefault();

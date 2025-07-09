@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "686e73a1f0229232bcbc72d6",
+    "itemId": "64b7f0d5a123456789abc003",
+    "name": "Bluetooth Noise-Canceling Headphones",
+    "price": 89.99,
+    "image": "https://i.ibb.co/jvC2T6Q5/hspital.jpg"
+  },
+  {
+    "_id": "686e7853f0229232bcbc72d7",
+    "itemId": "64b7f0d5a123456789abc001",
+    "name": "Eco-Friendly Water Bottle",
+    "price": 15.49,
+    "image": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg"
+  },
+  {
+    "_id": "686e785ff0229232bcbc72d8",
+    "itemId": "64b7f0d5a123456789abc001",
+    "name": "Eco-Friendly Water Bottle",
+    "price": 14.75,
+    "image": "https://i.ibb.co/k6Sj9xSP/figita.webp"
+  }
+]

@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <ViewCard></ViewCard>
       },
       {
-        path: '/checkout/:id',
+        path: '/checkout',
         element: <Checkout></Checkout>
       },
     ]

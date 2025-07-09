@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
 import img from "../../assets/Potato-logo-sqr-img.png";
+import { FaShoppingCart } from "react-icons/fa";
+import { useState } from "react";
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
+  const [cart] = useState([])
   const navigate = useNavigate();
   function logOut() {
     handleLogout()
@@ -22,8 +25,21 @@ const Navbar = () => {
         });
       });
   }
+
+  console.log(cart);
   const link = (
     <>
+      <Link to={"/checkout"}>
+        <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold ">
+           <button className="relative  text-center text-black font-bold">
+            Cart
+            <FaShoppingCart className="text-lg " />
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+             +{cart.length}    
+            </div>
+          </button>
+        </li>
+      </Link>
       <Link to={"/allproducts"}>
         <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
           All Products
@@ -34,6 +50,7 @@ const Navbar = () => {
           About
         </li>
       </Link>
+
       {!user ? (
         <Link to={"/login"}>
           <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
