@@ -22,7 +22,12 @@ import User from './component/Dashboard/User/User.jsx';
 import ViewCard from './component/AllProducts/ViewCard.jsx';
 import Checkout from './component/Checkout/Checkout.jsx';
 import Order from './component/Dashboard/Order/Order.jsx';
-
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
+const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
     path: "/",
@@ -89,8 +94,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <AuthProvider>
+     <QueryClientProvider client={queryClient}>
+     <AuthProvider>
       <RouterProvider router={router} />
-   </AuthProvider>
+    </AuthProvider>
+    </QueryClientProvider>
+
   </StrictMode>,
 )

@@ -1,91 +1,122 @@
 [
   {
-    "_id": "64b7f0d5a123456789abc001",
-    "name": "Eco-Friendly Water Bottle",
-    "category": "Home & Kitchen",
-    "description": "Reusable stainless steel bottle...",
+    "_id": "64b7f0d5a123456789abc101",
+    "name": "Weikav Keyboard",
+    "category": "Keyboard",
+    "sub": "Weikav",
+    "description": "High-performance mechanical keyboard from Weikav.",
     "images": [
-      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 15.49 },
-      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 16.00 },
-      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 14.75 }
-    ],
-    "sub" : "fsl"
-  },
-  {
-    "_id": "64b7f0d5a123456789abc002",
-    "name": "Ergonomic Office Chair",
-    "category": "Furniture",
-    "description": "Comfortable mesh back chair for long hours...",
-    "images": [
-      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 120.00 },
-      { "img": "https://i.ibb.co/vjDpNRm/chair2.jpg", "price": 130.50 },
-      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 115.99 }
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 49.99 },
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 52.00 },
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 48.50 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc003",
-    "name": "Bluetooth Noise-Canceling Headphones",
-    "category": "Electronics",
-    "description": "Crystal-clear sound with active noise cancellation...",
+    "_id": "64b7f0d5a123456789abc102",
+    "name": "Tactile Silent Switch",
+    "category": "Switch",
+    "sub": "Silent",
+    "description": "Smooth tactile switches with silent operation.",
     "images": [
-      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 89.99 },
-      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 92.00 },
-      { "img": "https://i.ibb.co/nzHcRM5/headphone3.jpg", "price": 85.50 }
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 22.00 },
+      { "img": "https://i.ibb.co/vjDpNRm/chair2.jpg", "price": 21.00 },
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 20.75 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc004",
-    "name": "Non-Stick Cookware Set",
-    "category": "Kitchen",
-    "description": "Durable non-stick pans and pots set...",
+    "_id": "64b7f0d5a123456789abc103",
+    "name": "Linear Clicky Switch Set",
+    "category": "Switch",
+    "sub": "Clicky",
+    "description": "Perfect for typing with satisfying clicky feedback.",
     "images": [
-      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 75.00 },
-      { "img": "https://i.ibb.co/DRTrRH3/cookware2.jpg", "price": 72.99 },
-      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 79.95 }
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 19.99 },
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 21.25 },
+      { "img": "https://i.ibb.co/nzHcRM5/headphone3.jpg", "price": 20.50 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc005",
-    "name": "Portable Laptop Stand",
-    "category": "Accessories",
-    "description": "Adjustable height and angle, perfect for work...",
+    "_id": "64b7f0d5a123456789abc104",
+    "name": "OEM Shine Through Keycaps",
+    "category": "Keycaps",
+    "sub": "OEM",
+    "description": "High-quality OEM profile keycaps with shine-through.",
     "images": [
-      { "img": "https://i.ibb.co/qkFsMZp/laptopstand1.jpg", "price": 29.99 },
-      { "img": "https://i.ibb.co/RNN4FD0/laptopstand2.jpg", "price": 31.25 },
-      { "img": "https://i.ibb.co/hcx2N1K/laptopstand3.jpg", "price": 28.49 }
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 34.99 },
+      { "img": "https://i.ibb.co/DRTrRH3/cookware2.jpg", "price": 35.00 },
+      { "img": "https://i.ibb.co/jvC2T6Q5/hspital.jpg", "price": 33.50 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc006",
-    "name": "Smart LED Light Strip",
-    "category": "Lighting",
-    "description": "Voice-controlled RGB light strip with app support...",
+    "_id": "64b7f0d5a123456789abc105",
+    "name": "Cherry Comic Keycap Set",
+    "category": "Keycaps",
+    "sub": "Cherry",
+    "description": "Fun comic-themed keycaps in Cherry profile.",
     "images": [
-      { "img": "https://i.ibb.co/Kyq5r8X/lightstrip1.jpg", "price": 22.00 },
-      { "img": "https://i.ibb.co/zRyK7t3/lightstrip2.jpg", "price": 21.50 },
-      { "img": "https://i.ibb.co/mHRzhCm/lightstrip3.jpg", "price": 23.25 }
+      { "img": "https://i.ibb.co/qkFsMZp/laptopstand1.jpg", "price": 39.99 },
+      { "img": "https://i.ibb.co/RNN4FD0/laptopstand2.jpg", "price": 40.25 },
+      { "img": "https://i.ibb.co/hcx2N1K/laptopstand3.jpg", "price": 38.99 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc007",
-    "name": "Compact Air Purifier",
-    "category": "Home Appliances",
-    "description": "HEPA filter air purifier for small rooms...",
+    "_id": "64b7f0d5a123456789abc106",
+    "name": "Keyboard Lube Kit",
+    "category": "Keyboard Accessories",
+    "sub": "Lube",
+    "description": "Everything you need to lube your switches.",
     "images": [
-      { "img": "https://i.ibb.co/Z6DJcbn/airpurifier1.jpg", "price": 59.99 },
-      { "img": "https://i.ibb.co/9rGgmMN/airpurifier2.jpg", "price": 62.00 },
-      { "img": "https://i.ibb.co/WxpjKb3/airpurifier3.jpg", "price": 58.75 }
+      { "img": "https://i.ibb.co/Kyq5r8X/lightstrip1.jpg", "price": 12.99 },
+      { "img": "https://i.ibb.co/zRyK7t3/lightstrip2.jpg", "price": 13.50 },
+      { "img": "https://i.ibb.co/mHRzhCm/lightstrip3.jpg", "price": 11.95 }
     ]
   },
   {
-    "_id": "64b7f0d5a123456789abc008",
-    "name": "Wireless Charging Pad",
-    "category": "Electronics",
-    "description": "Fast-charging pad for Qi-enabled devices...",
+    "_id": "64b7f0d5a123456789abc107",
+    "name": "ModdingSet",
+    "category": "Keyboard Accessories",
+    "sub": "Moding tools",
+    "description": "Tools for customizing and modding your keyboard.",
     "images": [
-      { "img": "https://i.ibb.co/BggBNmX/charger1.jpg", "price": 18.00 },
-      { "img": "https://i.ibb.co/qBZnBQ8/charger2.jpg", "price": 19.25 },
-      { "img": "https://i.ibb.co/6Dw6gMp/charger3.jpg", "price": 17.50 }
+      { "img": "https://i.ibb.co/Z6DJcbn/airpurifier1.jpg", "price": 18.50 },
+      { "img": "https://i.ibb.co/9rGgmMN/airpurifier2.jpg", "price": 19.99 },
+      { "img": "https://i.ibb.co/WxpjKb3/airpurifier3.jpg", "price": 17.75 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc108",
+    "name": "GamingMouseVXE",
+    "category": "Mouse",
+    "sub": "VXE",
+    "description": "High-precision gaming mouse from VXE series.",
+    "images": [
+      { "img": "https://i.ibb.co/BggBNmX/charger1.jpg", "price": 25.00 },
+      { "img": "https://i.ibb.co/qBZnBQ8/charger2.jpg", "price": 24.50 },
+      { "img": "https://i.ibb.co/6Dw6gMp/charger3.jpg", "price": 26.00 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc109",
+    "name": "Aula Mechanical Keyboard",
+    "category": "Keyboard",
+    "sub": "Aula",
+    "description": "Reliable and affordable keyboard from Aula.",
+    "images": [
+      { "img": "https://i.ibb.co/Kyq5r8X/lightstrip1.jpg", "price": 42.99 },
+      { "img": "https://i.ibb.co/zRyK7t3/lightstrip2.jpg", "price": 45.00 },
+      { "img": "https://i.ibb.co/mHRzhCm/lightstrip3.jpg", "price": 40.50 }
+    ]
+  },
+  {
+    "_id": "64b7f0d5a123456789abc110",
+    "name": "Topographic Keycap Set",
+    "category": "Keycaps",
+    "sub": "Topographic",
+    "description": "Stylish keycaps with topographic design.",
+    "images": [
+      { "img": "https://i.ibb.co/k6Sj9xSP/figita.webp", "price": 36.00 },
+      { "img": "https://i.ibb.co/vjDpNRm/chair2.jpg", "price": 37.25 },
+      { "img": "https://i.ibb.co/S4BF2VQx/gadjet-heaven.jpg", "price": 35.50 }
     ]
   }
 ]

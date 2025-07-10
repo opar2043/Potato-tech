@@ -4,6 +4,7 @@ import Product from '../AllProducts/Product'
 import Review from '../Review/Review'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Firebase/AuthProvider'
+import Navbar2 from './Navbar2'
 
 
 const Home = () => {
@@ -23,7 +24,7 @@ const Home = () => {
      
   return (
     <div>
-        
+        <Navbar2></Navbar2>
         <Banner></Banner>
         <Product></Product>
         <Review></Review>

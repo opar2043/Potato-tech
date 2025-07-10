@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import img from "../../assets/Potato Tech logo3.jpg";
 const Banner = () => {
   return (
-    <div className="w-full bg-[#fff]  rounded-md relative">
+    <div className="w-full z-10 bg-[#fff]  rounded-md relative">
       {/* header */}
       <header className="flex lg:flex-row flex-col items-center gap-12 lg:gap-0 justify-between px-8 mt-10 md:gap-4">
         <motion.div
