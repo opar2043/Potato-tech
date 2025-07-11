@@ -24,7 +24,6 @@
 //     .then((res) => res.json())
 //     .then(data => {
 //       console.log(data);
- 
 
 //     const productObj = {
 //       name,
@@ -147,13 +146,6 @@
 
 // export default AddProduct;
 
-
-
-
-
-
-
-
 import React, { useState } from "react";
 import useAxios from "../../Hook/useAxios";
 import Swal from "sweetalert2";
@@ -163,13 +155,13 @@ const img_api_key = `https://api.imgbb.com/1/upload?key=${img_hosting}`;
 
 const AddProduct = () => {
   const axiosSecure = useAxios();
-  const [category , setCategory] = useState('mouse')
-  const [sub , setSub] = useState('')
+  const [category, setCategory] = useState("mouse");
+  const [sub, setSub] = useState("");
 
   function handleAdd(e) {
     e.preventDefault();
     const name = e.target.name.value;
-    
+
     const description = e.target.description.value;
 
     const imageUploadPromises = [];
@@ -202,7 +194,7 @@ const AddProduct = () => {
         category,
         description,
         images,
-        sub
+        sub,
       };
 
       axiosSecure.post("/products", productObj).then(() => {
@@ -241,32 +233,48 @@ const AddProduct = () => {
         </div>
 
         {/* Category */}
-<div className="flex gap-2 flex-col md:flex-row">
+        <div className="flex gap-2 flex-col md:flex-row">
+          {/* Category Dropdown */}
           <div className="w-full">
             <select
               onChange={(e) => setCategory(e.target.value)}
-              className="select text-gray-700 border font-semibold  border-gray-300 w-full max-w-xs"
+              className="select text-gray-700 border font-semibold border-gray-300 w-full max-w-xs"
             >
               <option disabled selected>
                 Choose Product Category
               </option>
-              <option value={"keyboard"}>Keyboard</option>
-              <option value={"mouse"}>Mouse</option>
+              <option value="Keyboard">Keyboard</option>
+              <option value="Switch">Switch</option>
+              <option value="Keycaps">Keycaps</option>
+              <option value="Keyboard Accessories">Keyboard Accessories</option>
+              <option value="Mouse">Mouse</option>
+              <option value="Other">Other</option>
             </select>
           </div>
+
+          {/* Subcategory Dropdown */}
           <div className="w-full">
             <select
               onChange={(e) => setSub(e.target.value)}
               className="select text-gray-700 border font-semibold border-gray-300 w-full max-w-xs"
             >
               <option disabled selected>
-                Choose Product sub Category
+                Choose Product Sub Category
               </option>
-              <option value={"gsl"}>gsl</option>
-              <option value={"fsl"}>fsl</option>
+              <option value="Weikav">Weikav</option>
+              <option value="Silent">Silent</option>
+              <option value="Clicky">Clicky</option>
+              <option value="OEM">OEM</option>
+              <option value="Cherry">Cherry</option>
+              <option value="Lube">Lube</option>
+              <option value="Moding tools">Moding tools</option>
+              <option value="VXE">VXE</option>
+              <option value="Aula">Aula</option>
+              <option value="Topographic">Topographic</option>
+               <option value="Other">Other</option>
             </select>
           </div>
-</div>
+        </div>
 
         {/* Description */}
         <div>

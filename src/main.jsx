@@ -27,6 +27,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
+import SubCategory from './component/AllProducts/SubCategory.jsx';
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/checkout',
         element: <Checkout></Checkout>
+      },
+      {
+        path: '/category/:sub',
+        element: <SubCategory></SubCategory>
       },
     ]
   },

@@ -26,7 +26,7 @@ const Navbar = () => {
       });
   }
 
-  console.log(cart);
+
   const link = (
     <>
       <Link to={"/checkout"}>
@@ -96,7 +96,7 @@ const Navbar = () => {
 
         {/* Mobile */}
 
-        <div className="drawer md:hidden justify-end">
+        <div className="drawer md:hidden justify-end z-50">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             {/* Page content here */}
@@ -110,7 +110,7 @@ const Navbar = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu items-center bg-base-200 text-base-content min-h-full w-80 p-4">
+            <ul className="menu items-center bg-base-200 text-base-content min-h-full w-80 gap-2 p-4">
               {link}
             </ul>
           </div>

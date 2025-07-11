@@ -3,11 +3,13 @@ import useProducts from "../Hook/useProducts";
 import { Link } from "react-router-dom";
 
 const Navbar2 = () => {
-  const [products] = useProducts([]);
+  const [products] = useProducts([]) || [];
+  console.log(products);
+  
 
   // 🔹 Group by category and extract unique subcategories
   const getSubCategories = (category) => {
-    const filtered = products.filter((p) => p.category === category);
+    const filtered = products?.filter((p) => p.category === category);
     const uniqueSubs = [...new Set(filtered.map((item) => item.sub))];
     return uniqueSubs;
   };
@@ -15,7 +17,7 @@ const Navbar2 = () => {
   const categories = ["Keyboard", "Switch", "Keycaps", "Keyboard Accessories", "Mouse"];
 
   return (
-    <div className="navbar items-center justify-center bg-blue-600 text-white">
+    <div className="navbar pb-3 items-center justify-center bg-white text-gray-800 font-semibold">
       <ul className="menu menu-horizontal px-1">
         {categories.map((category) => {
           const subcategories = getSubCategories(category);
@@ -23,11 +25,12 @@ const Navbar2 = () => {
             <li key={category}>
               <details>
                 <summary className="capitalize">{category}</summary>
-                <ul className="bg-blue-100 text-black z-50 rounded-t-none p-2">
+                <ul className="bg-gray-200 text-black z-40 rounded-t-none p-2">
                   {subcategories.map((sub, idx) => (
                     <li key={idx}>
-                      <Link to={`/${sub}`}
+                      <Link to={`/category/${sub}`}
                       >{sub}</Link>
+                     
                     </li>
                   ))}
                 </ul>

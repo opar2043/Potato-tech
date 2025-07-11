@@ -7,6 +7,7 @@ import { AuthContext } from '../Firebase/AuthProvider'
 import Navbar2 from './Navbar2'
 
 
+
 const Home = () => {
      const {name} = useContext(AuthContext);
      const id = 1
