@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5001/",
+  baseURL: "https://potato-tech-server.vercel.app/",
 });
 
 const useAxios = () => {

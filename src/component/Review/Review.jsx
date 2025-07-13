@@ -11,33 +11,36 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import useAuth from "../Hook/useAuth";
 import useAxios from "../Hook/useAxios";
+import useReview from "../Hook/useReview";
 
 const Review = () => {
-  const [reviews, setReviews] = useState([]);
+  // const [reviews, setReviews] = useState([]);
+  const [ reviews ,isLoading , refetch ]= useReview()
   const [rating, setRating] = useState(5);
   // const user = true;
-    useEffect(() => {
-    fetch("/review.json")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("/review.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setReviews(data));
+  // }, []);
+  console.log(reviews);
 
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-
-
   function handleSubmit(e) {
     e.preventDefault();
     const review = e.target.review.value;
+    const cname = e.target.cname.value;
     document.getElementById("my_modal_1").close();
     e.target.reset();
 
     const reviewObj = {
       rating,
       review,
-      name: user.displayName || user.email.split("@")[0],
-      image: user.displayPhoto || 'https://i.ibb.co/bd2TzLB/shadow.jpg'
+      
+      name: user?.displayName || cname,
+      image:  "https://i.ibb.co/bd2TzLB/shadow.jpg",
     };
 
     axiosSecure.post("/reviews", reviewObj).then((res) => {
@@ -48,6 +51,7 @@ const Review = () => {
         timer: 2000,
         showConfirmButton: false,
       });
+      refetch()
     });
   }
 
@@ -69,6 +73,17 @@ const Review = () => {
           </form>
           <h3 className="font-bold text-lg mb-4">Submit Your Review</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                className="border p-2  w-full"
+                name="cname"
+                placeholder="Write your name"
+                required
+              ></input>
+            </div>
             <div>
               <label className="label">
                 <span className="label-text">Rating</span>
@@ -86,6 +101,7 @@ const Review = () => {
                 <option value="5">5 - Excellent</option>
               </select>
             </div>
+
             <div>
               <label className="label">
                 <span className="label-text">Review</span>
@@ -120,7 +136,7 @@ const Review = () => {
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper"
         >
-          {reviews.map((item, idx) => (
+          {reviews ? reviews.map((item, idx) => (
             <SwiperSlide key={idx}>
               <div className="bg-white p-6 rounded-xl shadow-md text-center space-y-3">
                 <img
@@ -144,17 +160,13 @@ const Review = () => {
                 <p className="text-gray-600 text-sm">{item.review}</p>
               </div>
             </SwiperSlide>
-          ))}
+          )) : <p className="text-center">No Review Yet</p>}
         </Swiper>
       </div>
 
       <div className="flex justify-end mt-6">
         <button
-          onClick={
-            user
-              ? () => document.getElementById("my_modal_1").showModal()
-              : handleClose
-          }
+          onClick={() => document.getElementById("my_modal_1").showModal()}
           className="btn btn-wide bg-slate-900 text-white hover:bg-white hover:text-black flex items-center gap-2"
         >
           <GoCodeReview className="text-xl" /> Review Us

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaHeart, FaHome, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { FaBox, FaHeart, FaHome, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
+import useProducts from "../Hook/useProducts";
 
 const ViewCard = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const axiossecure = useAxios();
+  const [products , isLoading , refetch ] = useProducts()
 
-  useEffect(() => {
-    fetch("/product.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-      });
-  }, [id]);
+  // useEffect(() => {
+  //   fetch("/product.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProduct(data);
+  //     });
+  // }, [id]);
 
-  const myProduct = product.find((pro) => pro._id == id) || {};
+  const myProduct = products.find((pro) => pro._id == id) || {};
   const { name, description, category, images = [], sub, _id } = myProduct;
   console.log(myProduct);
 
@@ -87,7 +89,7 @@ const ViewCard = () => {
       </div>
 
       {/* Product Details */}
-      <div className="flex flex-col justify-center gap-4">
+      <div className="flex flex-col justify-center gap-4 ">
         <h1 className="text-3xl font-semibold text-gray-800">{name}</h1>
         <p className="text-gray-600">
           {category} ({sub || "Only Variant"})
@@ -103,8 +105,8 @@ const ViewCard = () => {
 
           <div>
             <Link to={"/allproducts"}>
-              <button className="btn btn-xs p-3 border rounded border-[#0FABCA] hover:bg-[#0FABCA] hover:text-white text-[#0FABCA] text-lg">
-                <FaHome />
+              <button className="btn btn-xs px-6 py-4 border rounded border-[#0FABCA] hover:bg-[#0FABCA] hover:text-white text-[#0FABCA] text-sm">
+                <FaBox /> Go to All Products
               </button>
             </Link>
           </div>

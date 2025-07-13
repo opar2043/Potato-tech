@@ -14,10 +14,10 @@ const useCart = () => {
   // return [ cart]
   const axiosSecure = useAxios()
 
-  const {data: cart , isLoading , refetch} = useQuery({
+  const {data: cart = [], isLoading , refetch} = useQuery({
     queryKey: ['orders'],
     queryFn: async ()=>{
-      const res = axiosSecure.get('/add-to-cart');
+      const res =await axiosSecure.get('/add-to-cart');
       return res.data
     }
   })

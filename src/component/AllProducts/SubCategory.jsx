@@ -29,7 +29,7 @@ const SubCategory = () => {
       <div className="my-8 flex flex-col md:flex-row justify-between md:items-center">
         <div className="font-semibold">
           <Link to="/">
-            <span className="text-col hover:text-pink-500">Home</span>
+            <span className="text-col hover:text-pink-500">Home </span>
           </Link>
           / {sub} Category Products
         </div>

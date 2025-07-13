@@ -16,10 +16,10 @@ const useOrder = () => {
 
 
   const axiosSecure = useAxios();
-  const {data: orders, isLoading , refetch} = useQuery({
+  const {data: orders = [], isLoading , refetch} = useQuery({
     queryKey: ['orders'],
     queryFn: async ()=> {
-      const res = axiosSecure.get('/orders')
+      const res =await axiosSecure.get('/orders')
       return res.data
     }
   })

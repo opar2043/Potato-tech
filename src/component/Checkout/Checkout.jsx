@@ -4,6 +4,7 @@ import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
 import { Link, useParams } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import useCart from "../Hook/useCart";
 
 const img_hosting = "f00f7709983a82bfc1ca5153ef794386";
 const img_api_key = `https://api.imgbb.com/1/upload?key=${img_hosting}`;
@@ -11,23 +12,25 @@ const img_api_key = `https://api.imgbb.com/1/upload?key=${img_hosting}`;
 const Checkout = () => {
   const axiosSecure = useAxios();
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
   const [division, setDivision] = useState("Dhaka");
 
+  const [ cart   , isLoading , refetch] = useCart() || []
 
-  useEffect(() => {
-    fetch("/addcart.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-      });
-  }, [id]);
 
-  const myProduct = product.find((pro) => pro._id == id) || {};
+  // useEffect(() => {
+  //   fetch("/addcart.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProduct(data);
+  //     });
+  // }, [id]);
+
+  const myProduct = cart?.find((pro) => pro._id == id) || {};
   const { name, price, image } = myProduct || {};
   
   
-  const totalTaka = product.reduce((total, item) => total + item.price, 0);
+  const totalTaka = cart?.reduce((total, item) => total + item.price, 0) || 0;
 
   function handleAdd(e) {
     e.preventDefault();
@@ -63,10 +66,11 @@ const Checkout = () => {
           upzila,
           totalTaka,
           name,
-          thana
+          thana,
+          item: cart.length
         };
 
-        console.log(orderObj);
+        // console.log(orderObj);
 
         axiosSecure.post("/orders", orderObj).then(() => {
           Swal.fire({
@@ -92,13 +96,14 @@ const Checkout = () => {
         axiosSecure
           .delete(`/add-to-cart/${id}`)
           .then((res) => {
-            if (res.deletedCount > 0) {
+
               Swal.fire({
                 title: "Deleted!",
                 text: "Your Item has been deleted.",
                 icon: "success",
               });
-            }
+              refetch()
+
           })
           .catch((err) => {
             Swal.fire({
@@ -121,8 +126,8 @@ const Checkout = () => {
             Make Payment First then Fill The Form
           </h2>
 
-          {product &&
-            product.map((pro, idx) => (
+          {cart ?
+            cart.map((pro, idx) => (
               <ul key={idx} className="space-y-4">
                 <li className="flex items-center justify-between gap-4">
                   <div className="flex flex-col gap-1">
@@ -140,11 +145,11 @@ const Checkout = () => {
                   </div>
                 </li>
               </ul>
-            ))}
+            )) : <p className="text-center text-red-600">Cart is Empty</p>}
           <div className="border-t border-pink-200 pt-2"></div>
           <div className="flex justify-between text-gray-700 font-medium">
             <p>Payable Amount:</p>
-            <p>{totalTaka.toFixed(2)} TK</p>
+            <p>{totalTaka?.toFixed(2)} TK</p>
           </div>
 
           <div className="space-y-4 text-center">

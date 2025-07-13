@@ -3,18 +3,22 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import useAxios from "../../Hook/useAxios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useProducts from "../../Hook/useProducts";
 
 const AllBook = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const axiosSecure = useAxios();
 
-  useEffect(() => {
-    fetch("/product.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/product.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProducts(data);
+  //     });
+  // }, []);
+
+  const [products, isLoading, refetch] = useProducts() || [];
+  console.log(products);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -30,13 +34,15 @@ const AllBook = () => {
         axiosSecure
           .delete(`/products/${id}`)
           .then((res) => {
-            if (res.deletedCount > 0) {
+
               Swal.fire({
                 title: "Deleted!",
-                text: "Your Item has been deleted.",
+                text: `This Item Has been deleted`,
                 icon: "success",
               });
-            }
+              
+
+            refetch()
           })
           .catch((err) => {
             Swal.fire({
@@ -50,9 +56,7 @@ const AllBook = () => {
     });
   };
 
-  function handleEdit() {
-
-  }
+  function handleEdit() {}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-10 px-4">
@@ -62,72 +66,76 @@ const AllBook = () => {
         </h2>
 
         <div className="overflow-x-auto rounded-xl shadow-2xl bg-white p-6">
-          <table className="min-w-full table-auto border-collapse">
-            <thead className="bg-blue-100">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                  #
-                </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                  Title
-                </th>
-                <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                  Author
-                </th>
-                <th className="px-6 py-4 text-center text-sm font-bold text-gray-700 uppercase">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200 text-sm">
-              {products.length > 0 ? (
-                products.map((item, idx) => (
-                  <tr
-                    key={item._id}
-                    className="hover:bg-blue-50 transition duration-200"
-                  >
-                    <td className="px-6 py-4 text-gray-600 font-medium">
-                      {idx + 1}
-                    </td>
-                    <td className="px-6 py-4 font-semibold text-gray-800">
-                      {item.name}
-                    </td>
-                    <td className="px-6 py-4 text-gray-700">
-                      {item.category}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <div className="flex justify-center gap-6">
-                        <button
-                          title="Delete"
-                          onClick={() => handleDelete(item._id)}
-                          className="text-red-600 hover:text-red-800 hover:scale-110 transition-transform"
-                        >
-                          <FaTrash size={18} />
-                        </button>
-                        <Link to={`/dashboard/editproducts/${item._id}`}>
+          {products ? (
+            <table className="min-w-full table-auto border-collapse">
+              <thead className="bg-blue-100">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                    #
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                    Title
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
+                    Author
+                  </th>
+                  <th className="px-6 py-4 text-center text-sm font-bold text-gray-700 uppercase">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                {products.length > 0 ? (
+                  products.map((item, idx) => (
+                    <tr
+                      key={item._id}
+                      className="hover:bg-blue-50 transition duration-200"
+                    >
+                      <td className="px-6 py-4 text-gray-600 font-medium">
+                        {idx + 1}
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-gray-800">
+                        {item.name}
+                      </td>
+                      <td className="px-6 py-4 text-gray-700">
+                        {item.category}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        <div className="flex justify-center gap-6">
                           <button
-                            title="Edit"
-                            className="text-blue-600 hover:text-blue-800 hover:scale-110 transition-transform"
+                            title="Delete"
+                            onClick={() => handleDelete(item._id)}
+                            className="text-red-600 hover:text-red-800 hover:scale-110 transition-transform"
                           >
-                            <FaEdit size={18} />
+                            <FaTrash size={18} />
                           </button>
-                        </Link>
-                      </div>
+                          <Link to={`/dashboard/editproducts/${item._id}`}>
+                            <button
+                              title="Edit"
+                              className="text-blue-600 hover:text-blue-800 hover:scale-110 transition-transform"
+                            >
+                              <FaEdit size={18} />
+                            </button>
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="4"
+                      className="text-center py-6 text-gray-500 font-medium"
+                    >
+                      No items available.
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="4"
-                    className="text-center py-6 text-gray-500 font-medium"
-                  >
-                    No items available.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-center">No Products yet !</p>
+          )}
         </div>
       </div>
     </div>

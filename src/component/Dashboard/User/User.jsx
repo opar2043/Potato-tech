@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxios from "../../Hook/useAxios";
+import useUser from "../../Hook/useUser";
 
 const User = () => {
-  const [users, setUsers] = useState([]);
+  const [ users , isLoading , refetch]= useUser() || []
+  // const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetch("/user.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/user.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUsers(data);
+  //     });
+  // }, []);
 
   const axiosSecure = useAxios()
 
@@ -35,7 +37,7 @@ const User = () => {
               console.log("Response from server:", res.data);
     
               if (res.data.modifiedCount > 0) {
-                // refetch();
+                refetch();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -69,7 +71,7 @@ const User = () => {
           👥 Registered Customers
         </h2>
 
-        <div className="overflow-x-auto rounded-2xl shadow-xl bg-white p-6">
+{    users ?    <div className="overflow-x-auto rounded-2xl shadow-xl bg-white p-6">
           <table className="min-w-full table-auto border-collapse text-sm">
             <thead className="bg-blue-100">
               <tr>
@@ -111,7 +113,7 @@ const User = () => {
               )}
             </tbody>
           </table>
-        </div>
+        </div> : <p className="text-center">No Registered User</p>}
       </div>
     </div>
   );

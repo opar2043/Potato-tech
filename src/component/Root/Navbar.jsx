@@ -5,9 +5,11 @@ import Swal from "sweetalert2";
 import img from "../../assets/Potato-logo-sqr-img.png";
 import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
+import useCart from "../Hook/useCart";
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
-  const [cart] = useState([])
+  const [cart , isLoading , refetch] = useCart([]);
+
   const navigate = useNavigate();
   function logOut() {
     handleLogout()
@@ -35,7 +37,8 @@ const Navbar = () => {
             Cart
             <FaShoppingCart className="text-lg " />
             <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-             +{cart.length}    
+             +{cart.length}  
+               
             </div>
           </button>
         </li>
@@ -78,9 +81,9 @@ const Navbar = () => {
         <div className="md:flex-1  w-full">
           <div className="flex items-center justify-normal gap-2">
             <img src={img} alt="potato tech" className="w-9 h-9 rounded-full" />
-            <span className="text-lg  md:text-2xl text-col font-extrabold">
-              Potato Tech
-            </span>
+            <Link to={'/'} className="text-lg  md:text-2xl text-col font-extrabold">
+              <button>Potato Tech</button>
+            </Link>
           </div>
         </div>
 
