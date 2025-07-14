@@ -1,15 +1,64 @@
-# React + Vite
+# 🥔 Potato Tech
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An end-to-end e-commerce platform built using modern web technologies. From user authentication to admin management, real-time product control, and secure payment integration, **Potato Tech** is a complete solution for launching an online store.
 
-Currently, two official plugins are available:
+🔗 [Live Demo](https://classy-monstera-749439.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📚 Table of Contents
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Screenshots](#-screenshots)
+- [Configuration](#-configuration)
+- [Contributing](#-contributing)
+- [License](#-license)
 
+---
 
-https://classy-monstera-749439.netlify.app/
+## 🚀 Features
+
+- 🛍️ Product Listing with Add-to-Cart
+- 🔐 Firebase Authentication (Signup/Login)
+- 🧑‍💼 Role-based Access Control (Admin/User)
+- ✏️ Admin Dashboard with Add/Edit/Delete Product Features
+- 💳 Payment Gateway Integration
+- 📦 Dynamic Cart System
+- 🖼️ Clean UI with DaisyUI, Zenu UI, and Hyper UI
+- ⚡ Deployed on Vercel with a performant backend on Node.js & Express
+
+---
+
+## 🧰 Tech Stack
+
+**Frontend:**
+- React.js
+- Tailwind CSS
+- DaisyUI
+- Zenu UI
+- Hyper UI
+- HTML/CSS
+
+**Backend:**
+- Node.js
+- Express.js
+- MongoDB (Database)
+- Firebase (Authentication)
+
+**Deployment:**
+- Frontend: Netlify
+- Backend/API: Vercel
+
+---
+
+## ⚙️ Installation
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/potato-tech.git
+   cd potato-tech
+
