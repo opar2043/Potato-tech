@@ -3,166 +3,92 @@ import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
+import registerAnimation from "../../assets/register.json";
+import Lottie from "lottie-react";
 
 const Login = () => {
-  const { user, handleLogin, handleGoogle } = useAuth();
+  const { handleLogin, handleGoogle } = useAuth();
   const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.email.value;
     const pass = e.target.pass.value;
 
     handleLogin(email, pass)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        Swal.fire({
-          title: "Logged In!",
-          icon: "success",
-        });
+      .then(() => {
+        Swal.fire({ title: "Logged In!", icon: "success" });
         navigate("/");
       })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Swal.fire({
-          title: "Something Happen Wrong",
-          icon: "error",
-        });
+      .catch(() => {
+        Swal.fire({ title: "Something went wrong", icon: "error" });
       });
   }
 
   function handleGoogleLogin() {
     handleGoogle()
-      .then((result) => {
-        const user = result.user;
-        Swal.fire({
-          title: "Logged In!",
-          icon: "success",
-        });
+      .then(() => {
+        Swal.fire({ title: "Logged In!", icon: "success" });
         navigate("/");
       })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Swal.fire({
-          title: "Something Happen Wrong",
-          icon: "error",
-        });
+      .catch(() => {
+        Swal.fire({ title: "Something went wrong", icon: "error" });
       });
   }
 
   return (
-    <div>
-      <div>
-        <div className="mx-auto max-w-screen-xl bg-base-200 px-4 py-16 sm:px-6 lg:px-8 mt-7 rounded-md">
-          <div className="mx-auto max-w-lg text-center ">
-            <h1 className="text-2xl font-bold sm:text-3xl">
-              Started Shopping today!
-            </h1>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
+      <div className="max-w-6xl w-full bg-white rounded-2xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-10">
+        {/* Lottie Animation */}
+        <div className="flex items-center justify-center">
+          <Lottie animationData={registerAnimation} className="w-full h-80 md:h-[400px]" />
+        </div>
 
-          <form
-            onSubmit={handleSubmit}
-            action="#"
-            className="mx-auto shadow p-3 rounded-md  mt-8 mb-0 max-w-md space-y-4  "
-          >
+        {/* Form Section */}
+        <div className="flex flex-col justify-center">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Welcome Back</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="email" className="sr-only">
-                Email
-              </label>
-
-              <div className="relative">
-                <input
-                  type="email"
-                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-xs"
-                  placeholder="Enter email"
-                  name="email"
-                  // defaultValue={'jasim12@gmail.com'}
-                />
-
-                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="size-4 text-gray-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      // onClick={handleToggle}
-                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                    />
-                  </svg>
-                </span>
-              </div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
 
             <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-
-              <div className="relative">
-                <input
-                  type="password"
-                  className="w-full rounded-lg border border-gray-400 p-4 pe-12 text-sm shadow-xs"
-                  placeholder="Enter password"
-                  name="pass"
-                  // defaultValue={'1234567'}
-                />
-
-                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="size-4 text-gray-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      // onClick={handleToggle}
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    />
-                  </svg>
-                </span>
-              </div>
+              <input
+                type="password"
+                name="pass"
+                placeholder="Enter your password"
+                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
 
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-500">
-                No account?
-                <Link to={"/register"} className="text-blue-500 font-bold">
-                  {" "}
-                  Sign up
-                </Link>
-              </p>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md transition"
+            >
+              Sign In
+            </button>
 
-              <button
-                type="submit"
-                className="btn-wide rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white"
-              >
-                Sign in
-              </button>
-            </div>
-            <div className="mx-auto">
-              <button
-                onClick={() => handleGoogleLogin()}
-                className="text-center btn btn-outline w-full border border-gray-400"
-              >
-                <FaGoogle></FaGoogle>Google
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-100 py-3 rounded-md transition"
+            >
+              <FaGoogle className="text-blue-500" /> Continue with Google
+            </button>
           </form>
+
+          <p className="text-center text-sm text-gray-600 mt-4">
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-blue-600 font-semibold hover:underline">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

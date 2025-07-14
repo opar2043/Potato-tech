@@ -49,8 +49,6 @@ const AddProduct = () => {
         sub,
       };
 
-      
-
       axiosSecure
         .post("/products", productObj)
         .then(() => {
@@ -67,7 +65,7 @@ const AddProduct = () => {
           });
         });
 
-      // e.target.reset();
+      e.target.reset();
     });
   }
 
@@ -103,7 +101,7 @@ const AddProduct = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="select text-gray-700 border font-semibold border-gray-300 w-full max-w-xs"
             >
-              <option disabled value={''}>
+              <option disabled value={""}>
                 Choose Product Category
               </option>
               <option value="Keyboard">Keyboard</option>

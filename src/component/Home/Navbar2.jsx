@@ -3,7 +3,8 @@ import useProducts from "../Hook/useProducts";
 import { Link } from "react-router-dom";
 
 const Navbar2 = () => {
-  const [products, isLoading, refetch] = useProducts() || [];
+  const [products, isLoading , refetch] = useProducts() || [];
+  console.log(products);
 
   const getSubCategories = (category) => {
     const filtered = products?.filter((p) => p.category === category);
@@ -13,7 +14,6 @@ const Navbar2 = () => {
 
   const categories = ["Keyboard", "Mouse", "Switch", "Keycaps", "Keyboard Accessories"];
 
-  // 🔁 Don't render anything if products are missing or empty
   if (!products || products.length === 0) return "";
 
   return (

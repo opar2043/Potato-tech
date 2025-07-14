@@ -47,6 +47,7 @@ const ViewCard = () => {
           showConfirmButton: false,
           timer: 1000,
         });
+        refetch()
       }
     });
   }

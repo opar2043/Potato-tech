@@ -6,10 +6,12 @@ import img from "../../assets/Potato-logo-sqr-img.png";
 import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 import useCart from "../Hook/useCart";
+import useUser from "../Hook/useUser";
+import useAdmin from "../Hook/useAdmin";
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
-  const [cart , isLoading , refetch] = useCart([]);
-
+  const [cart, isLoading, refetch] = useCart([]);
+  const { admin } = useAdmin();
   const navigate = useNavigate();
   function logOut() {
     handleLogout()
@@ -28,17 +30,19 @@ const Navbar = () => {
       });
   }
 
+  const [users] = useUser();
+
+
 
   const link = (
     <>
       <Link to={"/checkout"}>
         <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold ">
-           <button className="relative  text-center text-black font-bold">
+          <button className="relative  text-center text-black font-bold">
             Cart
             <FaShoppingCart className="text-lg " />
             <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-             +{cart.length}  
-               
+              +{cart.length}
             </div>
           </button>
         </li>
@@ -68,11 +72,13 @@ const Navbar = () => {
           Log Out
         </li>
       )}
-      <Link to={"/dashboard"}>
-        <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
-          Dashboard
-        </li>
-      </Link>
+      {admin && (
+        <Link to={"/dashboard"}>
+          <li className="before:w-0 mx-2 hover:before:w-full before:bg-[#3B9DF8] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] text-black hover:text-[#3B9DF8] transition-all duration-300 before:left-0 cursor-pointer capitalize font-semibold">
+            Dashboard
+          </li>
+        </Link>
+      )}
     </>
   );
   return (
@@ -81,7 +87,10 @@ const Navbar = () => {
         <div className="md:flex-1  w-full">
           <div className="flex items-center justify-normal gap-2">
             <img src={img} alt="potato tech" className="w-9 h-9 rounded-full" />
-            <Link to={'/'} className="text-lg  md:text-2xl text-col font-extrabold">
+            <Link
+              to={"/"}
+              className="text-lg  md:text-2xl text-col font-extrabold"
+            >
               <button>Potato Tech</button>
             </Link>
           </div>
