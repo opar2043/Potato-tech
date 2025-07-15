@@ -1,4 +1,4 @@
-# 🥔 Potato Tech
+# 🥔 Potato Tech (Tech Excesories Web)
 
 An end-to-end e-commerce platform built using modern web technologies. From user authentication to admin management, real-time product control, and secure payment integration, **Potato Tech** is a complete solution for launching an online store.
 
