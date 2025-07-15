@@ -74,13 +74,15 @@ const Login = () => {
               Sign In
             </button>
 
-            <button
+        {  /*  <button
               type="button"
               onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-100 py-3 rounded-md transition"
             >
               <FaGoogle className="text-blue-500" /> Continue with Google
-            </button>
+            </button>*/}
+
+
           </form>
 
           <p className="text-center text-sm text-gray-600 mt-4">

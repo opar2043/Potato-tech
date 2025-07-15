@@ -9,18 +9,18 @@ const AddProduct = () => {
   const axiosSecure = useAxios();
   const [category, setCategory] = useState("mouse");
   const [sub, setSub] = useState("");
-
   function handleAdd(e) {
     e.preventDefault();
     const name = e.target.name.value;
-
+    
     const description = e.target.description.value;
 
     const imageUploadPromises = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const file = e.target[`image${i}`]?.files?.[0];
       const price = e.target[`price${i}`]?.value;
+      const color = e.target[`color${i}`]?.value;
 
       if (file && price) {
         const formData = new FormData();
@@ -34,6 +34,7 @@ const AddProduct = () => {
           .then((imgData) => ({
             img: imgData.data.url,
             price: parseFloat(price),
+            color
           }));
 
         imageUploadPromises.push(uploadPromise);
@@ -48,6 +49,7 @@ const AddProduct = () => {
         images,
         sub,
       };
+      console.log(productObj);
 
       axiosSecure
         .post("/products", productObj)
@@ -155,10 +157,10 @@ const AddProduct = () => {
         {/* Multiple Images + Prices */}
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-gray-700">
-            Upload up to 3 images with prices
+            Upload up to 5 images with prices
           </label>
 
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2,3,4].map((i) => (
             <div key={i} className="flex items-center gap-3">
               <input
                 type="file"
@@ -172,6 +174,14 @@ const AddProduct = () => {
                 name={`price${i}`}
                 step="0.01"
                 placeholder="Price"
+                className="p-2 border rounded w-40"
+                required
+              />
+              <input
+                type="text"
+                name={`color${i}`}
+                step="0.01"
+                placeholder="Color"
                 className="p-2 border rounded w-40"
                 required
               />

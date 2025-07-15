@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
@@ -15,8 +14,7 @@ const Checkout = () => {
   // const [product, setProduct] = useState([]);
   const [division, setDivision] = useState("Dhaka");
 
-  const [ cart   , isLoading , refetch] = useCart() || []
-
+  const [cart, isLoading, refetch] = useCart() || [];
 
   // useEffect(() => {
   //   fetch("/addcart.json")
@@ -28,8 +26,7 @@ const Checkout = () => {
 
   const myProduct = cart?.find((pro) => pro._id == id) || {};
   const { name, price, image } = myProduct || {};
-  
-  
+
   const totalTaka = cart?.reduce((total, item) => total + item.price, 0) || 0;
 
   function handleAdd(e) {
@@ -67,7 +64,7 @@ const Checkout = () => {
           totalTaka,
           name,
           thana,
-          item: cart.length
+          item: cart.length,
         };
 
         // console.log(orderObj);
@@ -80,7 +77,6 @@ const Checkout = () => {
         });
       });
   }
-
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -96,14 +92,12 @@ const Checkout = () => {
         axiosSecure
           .delete(`/add-to-cart/${id}`)
           .then((res) => {
-
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your Item has been deleted.",
-                icon: "success",
-              });
-              refetch()
-
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Item has been deleted.",
+              icon: "success",
+            });
+            refetch();
           })
           .catch((err) => {
             Swal.fire({
@@ -111,7 +105,6 @@ const Checkout = () => {
               text: "Something went wrong.",
               icon: "error",
             });
-           
           });
       }
     });
@@ -119,14 +112,21 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen gap-3 flex flex-col md:flex-row bg-gradient-to-br from-white to-pink-50 items-center justify-center py-10 px-4">
-
-            <div className="relative w-full h-full md:w-2/3 border border-pink-300 bg-pink-50 px-4 py-8 sm:px-6 lg:px-8 rounded-xl">
+      <div className="relative w-full h-full md:w-2/3 border border-pink-300 bg-pink-50 px-4 py-8 sm:px-6 lg:px-8 rounded-xl">
         <div className="mt-4 space-y-6">
           <h2 className="text-lg font-semibold text-pink-700">
             Make Payment First then Fill The Form
           </h2>
+          <div className="flex flex-col  border-pink-200">
+            <p className="text-lg border-b-2 border-pink-200 font-semibold text-pink-700">
+              Delivery Charge
+            </p>
+            <p className="text-sm mt-2 text-pink-600">- Inside Dhaka: 80 TK</p>
+            <p className="text-sm  text-pink-600">- Outside Dhaka: 150 TK</p>
+            <p className="text-sm  text-pink-600">- Close to Dhaka: 120 TK</p>
+          </div>
 
-          {cart ?
+          {cart ? (
             cart.map((pro, idx) => (
               <ul key={idx} className="space-y-4">
                 <li className="flex items-center justify-between gap-4">
@@ -141,11 +141,19 @@ const Checkout = () => {
 
                   <div className="flex gap-2 items-center justify-center">
                     <p className="text-gray-700"> {pro?.price} TK</p>
-                    <button onClick={()=>handleDelete(pro._id)} className="text-red-600 font-bold p-3 hover:bg-red-100 rounded-md btn btn-xs"><FaTrash></FaTrash></button>
+                    <button
+                      onClick={() => handleDelete(pro._id)}
+                      className="text-red-600 font-bold p-3 hover:bg-red-100 rounded-md btn btn-xs"
+                    >
+                      <FaTrash></FaTrash>
+                    </button>
                   </div>
                 </li>
               </ul>
-            )) : <p className="text-center text-red-600">Cart is Empty</p>}
+            ))
+          ) : (
+            <p className="text-center text-red-600">Cart is Empty</p>
+          )}
           <div className="border-t border-pink-200 pt-2"></div>
           <div className="flex justify-between text-gray-700 font-medium">
             <p>Payable Amount:</p>
@@ -155,7 +163,7 @@ const Checkout = () => {
           <div className="space-y-4 text-center">
             <p
               onClick={() => {
-                navigator.clipboard.writeText("01814482832");
+                navigator.clipboard.writeText("01905045531");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -166,11 +174,11 @@ const Checkout = () => {
               }}
               className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
             >
-              01814482832
+              01905045531
             </p>
 
             <p className="block rounded bg-pink-600 px-5 py-3 text-sm text-white hover:bg-pink-700">
-              Make Payment to Bkash
+              Make Payment
             </p>
             <Link
               to={"/allproducts"}
@@ -187,7 +195,7 @@ const Checkout = () => {
         className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl space-y-6 border border-pink-200"
       >
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-4">
-           Payment Page
+          Payment Page
         </h2>
 
         <div className="flex flex-col md:flex-row gap-1">
@@ -327,8 +335,6 @@ const Checkout = () => {
           </button>
         </div>
       </form>
-
-
     </div>
   );
 };

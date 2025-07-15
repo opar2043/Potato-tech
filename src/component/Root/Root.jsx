@@ -16,7 +16,7 @@ const Root = () => {
       <div className="fixed bottom-10 right-8">
         <button className="btn w-11 h-11 text-xs bg-green-500 hover:bg-white hover:text-green-400 hover:border-0 text-white rounded-full border border-green-500">
           <div className="text-3xl">
-            <a href=" https://wa.me/qr/7FADY5JLDLSMB1">
+            <a href="https://wa.me/qr/WKZSZEROZ3DPK1">
               <FaWhatsapp></FaWhatsapp>
             </a>
           </div>

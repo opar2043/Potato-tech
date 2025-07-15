@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaBox, FaHeart, FaHome, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import {
+  FaBox,
+  FaHeart,
+  FaHome,
+  FaRegHeart,
+  FaShoppingCart,
+} from "react-icons/fa";
 import useAxios from "../Hook/useAxios";
 import Swal from "sweetalert2";
 import useProducts from "../Hook/useProducts";
 
 const ViewCard = () => {
   const { id } = useParams();
-  // const [product, setProduct] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const axiossecure = useAxios();
-  const [products , isLoading , refetch ] = useProducts()
+  const [products, isLoading, refetch] = useProducts();
 
   // useEffect(() => {
   //   fetch("/product.json")
@@ -26,9 +29,9 @@ const ViewCard = () => {
   const { name, description, category, images = [], sub, _id } = myProduct;
   console.log(myProduct);
 
-  const imageList = images.map((item) => item.img); // Extract only image URLs
-  const selectedImage = imageList[currentImageIndex]; // Image to display
-  const selectedPrice = images[currentImageIndex]?.price || 0; // Price based on current image
+  const imageList = images.map((item) => item.img);
+  const selectedImage = imageList[currentImageIndex];
+  const selectedPrice = images[currentImageIndex]?.price || 0;
 
   function handleAddtoCart() {
     const cartItem = {
@@ -47,7 +50,7 @@ const ViewCard = () => {
           showConfirmButton: false,
           timer: 1000,
         });
-        refetch()
+        refetch();
       }
     });
   }
@@ -110,6 +113,27 @@ const ViewCard = () => {
                 <FaBox /> Go to All Products
               </button>
             </Link>
+          </div>
+        </div>
+        <div>
+
+          {/* Color Changes Dynamically */}
+          <div>
+            <div className="flex gap-4 justify-between">
+              {images.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)} 
+                  className={`relative w-[4rem] h-[2rem] flex items-center justify-center text-white font-semibold rounded transition-all duration-300 text-xs ${
+                    currentImageIndex === index
+                      ? "bg-[#0FABCA] ring-2 ring-[#0FABCA] "
+                      : "bg-gray-400 hover:ring-2 hover:ring-[#0FABCA]"
+                  }`}
+                >
+                  {item.color}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
