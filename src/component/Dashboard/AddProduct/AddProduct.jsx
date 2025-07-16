@@ -9,10 +9,27 @@ const AddProduct = () => {
   const axiosSecure = useAxios();
   const [category, setCategory] = useState("mouse");
   const [sub, setSub] = useState("");
+  const [features , setFeatures] = useState([{features: '', value: ''}])
+
+  function handleFeature(idx , field , value){
+    const update = [...features]
+    update[idx][field] = value;
+    setFeatures(update)
+  }
+
+  function addFeature(){
+    setFeatures([...features, {features: "", value: ""}]);
+  }
+
+    function removeFeature  (index)  {
+    const updated = features.filter((_, i) => i !== index);
+    setFeatures(updated);
+  };
+
   function handleAdd(e) {
     e.preventDefault();
     const name = e.target.name.value;
-    
+
     const description = e.target.description.value;
 
     const imageUploadPromises = [];
@@ -34,7 +51,7 @@ const AddProduct = () => {
           .then((imgData) => ({
             img: imgData.data.url,
             price: parseFloat(price),
-            color
+            color,
           }));
 
         imageUploadPromises.push(uploadPromise);
@@ -48,6 +65,7 @@ const AddProduct = () => {
         description,
         images,
         sub,
+        features
       };
       console.log(productObj);
 
@@ -160,7 +178,7 @@ const AddProduct = () => {
             Upload up to 5 images with prices
           </label>
 
-          {[0, 1, 2,3,4].map((i) => (
+          {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="flex items-center gap-3">
               <input
                 type="file"
@@ -187,6 +205,50 @@ const AddProduct = () => {
               />
             </div>
           ))}
+        </div>
+
+        {/* Dynamic Features */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Product Features
+          </label>
+          
+            {features?.map((item , idx)=>(
+              <div key={idx} className="flex gap-2 items-center mb-2">
+              <input
+                type="text"
+                placeholder="Feature"
+                value={item.features}
+                onChange={e=>handleFeature(idx , 'features' , e.target.value)}
+                className="p-2 border rounded w-full"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Attribute"
+                value={item.value}
+                 onChange={e=>handleFeature(idx , 'value' , e.target.value)}
+                className="p-2 border rounded w-full"
+                required
+              />
+             
+                <button
+                  type="button"
+                  onClick={() => removeFeature(idx)}
+                  className="px-3 py-1 bg-red-500 text-white rounded"
+                >
+                  ✕
+                </button>
+         
+            </div>))}
+         
+          <button
+            type="button"
+            onClick={addFeature}
+            className="mt-2 px-3 py-1 bg-blue-500 text-white rounded"
+          >
+            + Add Feature
+          </button>
         </div>
 
         {/* Submit Button */}
