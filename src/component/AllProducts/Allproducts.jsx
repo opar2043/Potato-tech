@@ -10,12 +10,12 @@ const Allproducts = () => {
   const [dbSearch, setDbSearch] = useState("");
 
   useEffect(() => {
-    fetch(`https://potato-tech-server.vercel.app/products?mouse=${mouse}`)
+     fetch(`https://potato-tech-server.vercel.app/products?category=${mouse}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Error fetching products:", err));
   }, [mouse]);
-
+  console.log(mouse);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDbSearch(search.trim().toLowerCase());

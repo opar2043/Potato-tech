@@ -66,6 +66,8 @@ const Checkout = () => {
           name,
           thana,
           item: cart.length,
+          method,
+          vat
         };
 
         // console.log(orderObj);
@@ -189,7 +191,7 @@ const Checkout = () => {
 
           <div className="border-t border-pink-200 pt-2"></div>
           <div className="flex justify-between text-gray-700 font-medium">
-            <p>Payable Amount:</p>
+            <p>Payable Amount With Charge:</p>
             <p>{totalmoney ? totalTaka?.toFixed(2) : 0} TK</p>
           </div>
 

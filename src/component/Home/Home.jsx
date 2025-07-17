@@ -5,6 +5,7 @@ import Review from '../Review/Review'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Firebase/AuthProvider'
 import Navbar2 from './Navbar2'
+import Achivment from '../Achivment/Achivment'
 
 
 
@@ -28,6 +29,7 @@ const Home = () => {
         <Navbar2></Navbar2>
         <Banner></Banner>
         <Product></Product>
+        <Achivment></Achivment>
         <Review></Review>
     </div>
   )

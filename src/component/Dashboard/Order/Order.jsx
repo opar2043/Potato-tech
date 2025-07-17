@@ -86,6 +86,13 @@ const Order = () => {
                                   {selectedOrder.trx}
                                 </dd>
                               </div>
+                              <div>
+                                <dt className="inline">Methode:</dt>
+                                <dd className="inline  ml-1 rounded-md py-1 px-3 text-gray-700">
+                                  {" "}
+                                  {selectedOrder.method}
+                                </dd>
+                              </div>
                             </dl>
                           </div>
 
@@ -130,7 +137,7 @@ const Order = () => {
                             </div>
                             <div className="flex justify-between !text-base font-medium">
                               <dt>Total</dt>
-                              <dd>${selectedOrder.totalTaka || 0}</dd>
+                              <dd>{selectedOrder.totalTaka || 0} TK</dd>
                             </div>
                           </dl>
 

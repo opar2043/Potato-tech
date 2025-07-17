@@ -13,33 +13,46 @@ const EditProduct = () => {
   const [products, isLoading, refetch] = useProducts();
 
   const product = products?.find((item) => item._id === id);
+  const [category, setCategory] = useState("");
+  const [sub, setSub] = useState("");
+  const [features, setFeatures] = useState([]);
 
-  if (isLoading || !product)
-    return <p className="text-center py-20">Loading...</p>;
-  // const [product, setProduct] = useState(null);
+  useEffect(() => {
+    if (product) {
+      setCategory(product.category || "");
+      setSub(product.sub || "");
+      setFeatures(product.features || []);
+    }
+  }, [product]);
 
-  // useEffect(() => {
-  //   fetch("/product.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const found = data.find((item) => item._id === id);
-  //       setProduct(found);
-  //     });
-  // }, [id]);
+  if (isLoading || !product) return <p className="text-center py-20">Loading...</p>;
+
+  function handleFeature(idx, field, value) {
+    const update = [...features];
+    update[idx][field] = value;
+    setFeatures(update);
+  }
+
+  function addFeature() {
+    setFeatures([...features, { features: "", value: "" }]);
+  }
+
+  function removeFeature(index) {
+    const updated = features.filter((_, i) => i !== index);
+    setFeatures(updated);
+  }
 
   const handleUpdate = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
-    const category = e.target.category.value;
-    const sub = e.target.sub?.value;
 
-    const updatedImages = [];
     const imageUploadPromises = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const file = e.target[`image${i}`]?.files?.[0];
       const price = e.target[`price${i}`]?.value;
+      const color = e.target[`color${i}`]?.value;
 
       if (file && price) {
         const formData = new FormData();
@@ -53,19 +66,21 @@ const EditProduct = () => {
           .then((imgData) => ({
             img: imgData.data.url,
             price: parseFloat(price),
+            color,
           }));
 
         imageUploadPromises.push(uploadPromise);
       }
     }
 
-    Promise.all(imageUploadPromises).then((uploadedImages) => {
+    Promise.all(imageUploadPromises).then((newImages) => {
       const updatedData = {
         name,
-        category,
         description,
-        images: uploadedImages.length > 0 ? uploadedImages : product.images,
+        category,
         sub,
+        features,
+        images: newImages.length > 0 ? newImages : product.images,
       };
 
       axiosSecure.patch(`/products/${id}`, updatedData).then(() => {
@@ -73,11 +88,10 @@ const EditProduct = () => {
           title: "Product Updated",
           icon: "success",
         });
+        refetch();
       });
     });
   };
-
-  if (!product) return <p className="text-center py-20">Loading...</p>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center py-10 px-4">
@@ -91,9 +105,7 @@ const EditProduct = () => {
 
         {/* Item Name */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700">
-            Item Name
-          </label>
+          <label className="block text-sm font-semibold text-gray-700">Item Name</label>
           <input
             type="text"
             name="name"
@@ -103,17 +115,15 @@ const EditProduct = () => {
           />
         </div>
 
-        {/* Category Dropdown */}
-        {product?.category && (
-          <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              Category
-            </label>
+        {/* Category and Subcategory */}
+        <div className="flex gap-2 flex-col md:flex-row">
+          {/* Category */}
+          <div className="w-full">
             <select
-              name="category"
-              defaultValue={product.category}
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
               required
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="select text-gray-700 border font-semibold border-gray-300 w-full max-w-xs"
             >
               <option disabled value="">
                 Choose Product Category
@@ -126,62 +136,83 @@ const EditProduct = () => {
               <option value="Other">Other</option>
             </select>
           </div>
-        )}
 
-        {/* Sub Category Dropdown */}
-        {product?.sub && (
-          <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              Sub Category (optional)
-            </label>
+          {/* Subcategory */}
+          <div className="w-full">
             <select
-              name="sub"
-              defaultValue={product.sub || ""}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              value={sub}
+              onChange={(e) => setSub(e.target.value)}
+              className="select text-gray-700 border font-semibold border-gray-300 w-full max-w-xs"
             >
-              <option value="">Choose Sub Category</option>
-              <option value="Weikav">Weikav</option>
-              <option value="Silent">Silent</option>
-              <option value="Clicky">Clicky</option>
-              <option value="OEM">OEM</option>
-              <option value="Cherry">Cherry</option>
-              <option value="Lube">Lube</option>
-              <option value="Moding tools">Moding tools</option>
-              <option value="VXE">VXE</option>
-              <option value="Aula">Aula</option>
-              <option value="Topographic">Topographic</option>
+              <option disabled value="">
+                Choose Product Sub Category
+              </option>
+              {category === "Keyboard" && (
+                <>
+                  <option value="Weikav">Weikav</option>
+                  <option value="Aula">Aula</option>
+                  <option value="Leobog">Leobog</option>
+                </>
+              )}
+              {category === "Switch" && (
+                <>
+                  <option value="Tactile">Tactile</option>
+                  <option value="Linear">Linear</option>
+                  <option value="Silent">Silent</option>
+                  <option value="Clicky">Clicky</option>
+                </>
+              )}
+              {category === "Keycaps" && (
+                <>
+                  <option value="Clicky">Clicky</option>
+                  <option value="OEM">OEM</option>
+                  <option value="MOA/KOA">MOA/KOA</option>
+                  <option value="Comic">Comic</option>
+                  <option value="Topographic">Topographic</option>
+                  <option value="Shine Through">Shine Through</option>
+                </>
+              )}
+              {category === "Keyboard Accessories" && (
+                <>
+                  <option value="Lube">Lube</option>
+                  <option value="Moding tools">Moding tools</option>
+                </>
+              )}
+              {category === "Mouse" && (
+                <>
+                  <option value="ATK">ATK</option>
+                  <option value="VXE">VXE</option>
+                </>
+              )}
               <option value="Other">Other</option>
             </select>
           </div>
-        )}
+        </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700">
-            Description
-          </label>
+          <label className="block text-sm font-semibold text-gray-700">Description</label>
           <textarea
             name="description"
+            rows="3"
             required
             defaultValue={product.description}
-            rows="3"
             className="w-full mt-1 p-3 border border-gray-300 rounded-lg"
           ></textarea>
         </div>
 
-        {/* Image & Price Inputs */}
+        {/* Upload new images (optional) */}
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-gray-700">
-            Update up to 3 new images with prices (optional)
+            Replace images (optional)
           </label>
 
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="flex items-center gap-3">
               <input
                 type="file"
                 name={`image${i}`}
                 accept="image/*"
-                
                 className="p-2 border rounded w-full"
               />
               <input
@@ -194,13 +225,54 @@ const EditProduct = () => {
               <input
                 type="text"
                 name={`color${i}`}
-                step="0.01"
                 placeholder="Color"
                 className="p-2 border rounded w-40"
-                required
               />
             </div>
           ))}
+        </div>
+
+        {/* Product Features */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Product Features
+          </label>
+
+          {features?.map((item, idx) => (
+            <div key={idx} className="flex gap-2 items-center mb-2">
+              <input
+                type="text"
+                placeholder="Feature"
+                value={item.features}
+                onChange={(e) => handleFeature(idx, "features", e.target.value)}
+                className="p-2 border rounded w-full"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Attribute"
+                value={item.value}
+                onChange={(e) => handleFeature(idx, "value", e.target.value)}
+                className="p-2 border rounded w-full"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => removeFeature(idx)}
+                className="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addFeature}
+            className="mt-2 px-3 py-1 bg-blue-500 text-white rounded"
+          >
+            + Add Feature
+          </button>
         </div>
 
         {/* Submit Button */}
