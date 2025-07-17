@@ -13,7 +13,9 @@ const Checkout = () => {
   const { id } = useParams();
   // const [product, setProduct] = useState([]);
   const [division, setDivision] = useState("Dhaka");
-
+  const [method, setMethod] = useState("bkash");
+  const [vat , setVat] = useState(80);
+  // console.log(vat);
   const [cart, isLoading, refetch] = useCart() || [];
 
   // useEffect(() => {
@@ -26,9 +28,8 @@ const Checkout = () => {
 
   const myProduct = cart?.find((pro) => pro._id == id) || {};
   const { name, price, image } = myProduct || {};
-
-  const totalTaka = cart?.reduce((total, item) => total + item.price, 0) || 0;
-
+  const totalmoney= cart?.reduce((total, item) => total + item.price, 0) || 0;
+  const totalTaka = totalmoney + parseInt(vat) ;
   function handleAdd(e) {
     e.preventDefault();
     const cusname = e.target.cusname.value;
@@ -117,13 +118,39 @@ const Checkout = () => {
           <h2 className="text-lg font-semibold text-pink-700">
             Make Payment First then Fill The Form
           </h2>
-          <div className="flex flex-col  border-pink-200">
-            <p className="text-lg border-b-2 border-pink-200 font-semibold text-pink-700">
-              Delivery Charge
-            </p>
-            <p className="text-sm mt-2 text-pink-600">- Inside Dhaka: 80 TK</p>
-            <p className="text-sm  text-pink-600">- Outside Dhaka: 150 TK</p>
-            <p className="text-sm  text-pink-600">- Close to Dhaka: 120 TK</p>
+          {/* Payable Area */}
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-1">
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700">
+                Payment Method
+              </label>
+              <select
+                name="district"
+                requipink
+                onChange={(e) => setMethod(e.target.value)}
+                className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
+              >
+                <option value="">Select Payment Method</option>
+                <option value="bkash">bKash / Nagad</option>
+                <option value="bank">Bank </option>
+                <option value="cod">C.O.D</option>
+              </select>
+            </div>
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700">
+                Select Area
+              </label>
+              <select
+                name="district"
+                requipink
+                onChange={(e) => setVat(e.target.value)}
+                className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
+              >
+                <option value={'80'}>In Side Dhaka (80 TK)</option>
+                <option value="150">Out Side Dhaka (150 TK)</option>
+                <option value="120">Close to Dhaka (120 TK)</option>
+              </select>
+            </div>
           </div>
 
           {cart ? (
@@ -156,26 +183,50 @@ const Checkout = () => {
           )}
           <div className="border-t border-pink-200 pt-2"></div>
           <div className="flex justify-between text-gray-700 font-medium">
+            <p> Amount:</p>
+            <p>{totalmoney?.toFixed(2)} TK</p>
+          </div>
+
+          <div className="border-t border-pink-200 pt-2"></div>
+          <div className="flex justify-between text-gray-700 font-medium">
             <p>Payable Amount:</p>
-            <p>{totalTaka?.toFixed(2)} TK</p>
+            <p>{totalmoney ? totalTaka?.toFixed(2) : 0} TK</p>
           </div>
 
           <div className="space-y-4 text-center">
-            <p
-              onClick={() => {
-                navigator.clipboard.writeText("01905045531");
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Number Copied",
-                  showConfirmButton: false,
-                  timer: 1000,
-                });
-              }}
-              className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
-            >
-              01905045531
-            </p>
+            {method && method == "bkash" ? (
+              <p
+                onClick={() => {
+                  navigator.clipboard.writeText("01905045531");
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Number Copied",
+                    showConfirmButton: false,
+                    timer: 1000,
+                  });
+                }}
+                className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
+              >
+                01905045531
+              </p>
+            ) : (
+              <p
+                onClick={() => {
+                  navigator.clipboard.writeText("140000000000000000000002");
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Bank Acc. No. Copied",
+                    showConfirmButton: false,
+                    timer: 1000,
+                  });
+                }}
+                className="cursor-pointer block rounded border font-bold border-pink-400 px-5 py-3 text-sm text-pink-600 hover:ring-1 hover:ring-pink-400 transition"
+              >
+                140000000000000000000002
+              </p>
+            )}
 
             <p className="block rounded bg-pink-600 px-5 py-3 text-sm text-white hover:bg-pink-700">
               Make Payment
@@ -252,7 +303,7 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-1">
           <div className="w-full">
             <label className="block text-sm font-semibold text-gray-700">
               District

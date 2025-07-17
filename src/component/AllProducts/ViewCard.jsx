@@ -101,7 +101,7 @@ const ViewCard = () => {
           <p className="text-gray-600">
             {category} ({sub || "Only Variant"})
           </p>
-<p className="text-gray-600">{description.slice(0, 200)}.....</p>
+<p className="text-gray-600">{description?.slice(0, 200)}.....</p>
 
           <div className="flex items-center font-semibold justify-start gap-5">
             <div className="flex items-center gap-3 text-lg font-medium">
@@ -171,7 +171,7 @@ const ViewCard = () => {
       <TabPanel className="w-full mt-4">
         <ul className="list-disc ml-5 text-gray-700">
           {description
-            .split(".")
+            ?.split(".")
             .map((line, index) =>
               line.trim() ? <li key={index}>{line.trim()}.</li> : null
             )}

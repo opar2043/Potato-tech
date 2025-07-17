@@ -9,22 +9,22 @@ const AddProduct = () => {
   const axiosSecure = useAxios();
   const [category, setCategory] = useState("mouse");
   const [sub, setSub] = useState("");
-  const [features , setFeatures] = useState([{features: '', value: ''}])
+  const [features, setFeatures] = useState([{ features: "", value: "" }]);
 
-  function handleFeature(idx , field , value){
-    const update = [...features]
+  function handleFeature(idx, field, value) {
+    const update = [...features];
     update[idx][field] = value;
-    setFeatures(update)
+    setFeatures(update);
   }
 
-  function addFeature(){
-    setFeatures([...features, {features: "", value: ""}]);
+  function addFeature() {
+    setFeatures([...features, { features: "", value: "" }]);
   }
 
-    function removeFeature  (index)  {
+  function removeFeature(index) {
     const updated = features.filter((_, i) => i !== index);
     setFeatures(updated);
-  };
+  }
 
   function handleAdd(e) {
     e.preventDefault();
@@ -65,7 +65,7 @@ const AddProduct = () => {
         description,
         images,
         sub,
-        features
+        features,
       };
       console.log(productObj);
 
@@ -143,16 +143,47 @@ const AddProduct = () => {
               <option disabled value="">
                 Choose Product Sub Category
               </option>
-              <option value="Weikav">Weikav</option>
-              <option value="Silent">Silent</option>
-              <option value="Clicky">Clicky</option>
-              <option value="OEM">OEM</option>
-              <option value="Cherry">Cherry</option>
-              <option value="Lube">Lube</option>
-              <option value="Moding tools">Moding tools</option>
-              <option value="VXE">VXE</option>
-              <option value="Aula">Aula</option>
-              <option value="Topographic">Topographic</option>
+              {category == "Keyboard" && (
+                <>
+                  <option value="Weikav">Weikav</option>
+                  <option value="Aula">Aula</option>
+                  <option value="Leobog">Leobog</option>
+                </>
+              )}
+
+              {category == "Switch" && (
+                <>
+                  <option value="Tactile">Tactile</option>
+                  <option value="Linear">Linear</option>
+                  <option value="Silent">Silent</option>
+                  <option value="Clicky">Clicky</option>
+                </>
+              )}
+
+              {category == "Keycaps" && (
+                <>
+                  <option value="Clicky">Clicky</option>
+                  <option value="OEM">OEM</option>
+                  <option value="MOA/KOA">MOA/KOA</option>
+                  <option value="Comic">Comic</option>
+                  <option value="Topographic">Topographic</option>
+                  <option value="Shine Through">Shine Through</option>
+                </>
+              )}
+
+              {category == "Keyboard Accessories" && (
+                <>
+                  <option value="Lube">Lube</option>
+                  <option value="Moding tools">Moding tools</option>
+                </>
+              )}
+
+              {category == "Mouse" && (
+                <>
+                  <option value="ATK">ATK</option>
+                  <option value="VXE">VXE</option>
+                </>
+              )}
               <option value="Other">Other</option>
             </select>
           </div>
@@ -212,14 +243,14 @@ const AddProduct = () => {
           <label className="block text-sm font-semibold text-gray-700 mb-1">
             Product Features
           </label>
-          
-            {features?.map((item , idx)=>(
-              <div key={idx} className="flex gap-2 items-center mb-2">
+
+          {features?.map((item, idx) => (
+            <div key={idx} className="flex gap-2 items-center mb-2">
               <input
                 type="text"
                 placeholder="Feature"
                 value={item.features}
-                onChange={e=>handleFeature(idx , 'features' , e.target.value)}
+                onChange={(e) => handleFeature(idx, "features", e.target.value)}
                 className="p-2 border rounded w-full"
                 required
               />
@@ -227,21 +258,21 @@ const AddProduct = () => {
                 type="text"
                 placeholder="Attribute"
                 value={item.value}
-                 onChange={e=>handleFeature(idx , 'value' , e.target.value)}
+                onChange={(e) => handleFeature(idx, "value", e.target.value)}
                 className="p-2 border rounded w-full"
                 required
               />
-             
-                <button
-                  type="button"
-                  onClick={() => removeFeature(idx)}
-                  className="px-3 py-1 bg-red-500 text-white rounded"
-                >
-                  ✕
-                </button>
-         
-            </div>))}
-         
+
+              <button
+                type="button"
+                onClick={() => removeFeature(idx)}
+                className="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
           <button
             type="button"
             onClick={addFeature}
