@@ -37,6 +37,7 @@ const ViewCard = () => {
     sub,
     _id,
     features,
+    stock,
   } = myProduct;
   console.log(myProduct);
 
@@ -77,9 +78,12 @@ const ViewCard = () => {
               alt={name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-4 left-4 px-2 py-1 text-xs font-semibold bg-black text-white rounded">
-              {category}
-            </div>
+            <span
+              className={`absolute top-4 left-4 px-2 py-1 text-xs font-semibold rounded 
+    ${stock == 'available'? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
+            >
+              {stock == 'available'? "Available" : "Out of Stock"}
+            </span>
           </div>
 
           {/* Thumbnails */}
@@ -105,8 +109,9 @@ const ViewCard = () => {
         </div>
 
         {/* Product Details */}
-        <div className="flex flex-col justify-center gap-4 ">
-          <h1 className="text-3xl font-semibold text-gray-800">{name}</h1>
+        <div className="relative flex flex-col justify-center gap-4 ">
+          <h1 className="text-3xl font-semibold text-gray-800">{name} </h1>
+
           <p className="text-gray-600">
             {category} ({sub || "Only Variant"})
           </p>
@@ -115,7 +120,7 @@ const ViewCard = () => {
           <div className="flex items-center font-semibold justify-start gap-5">
             <div className="flex items-center gap-3 text-lg font-medium">
               <span className="text-[#0FABCA] font-semibold flex items-center gap-2">
-               <FaCoins></FaCoins> {selectedPrice.toFixed(2)}{" "} TK
+                <FaCoins></FaCoins> {selectedPrice.toFixed(2)} TK
               </span>
             </div>
 
@@ -130,12 +135,12 @@ const ViewCard = () => {
           <div>
             {/* Color Changes Dynamically */}
             <div>
-              <div className="flex gap-4 justify-between">
+              <div className="flex gap-2 justify-start flex-row">
                 {images.map((item, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`relative w-[4rem] h-[2rem] flex items-center justify-center text-white font-semibold rounded transition-all duration-300 text-xs ${
+                    className={`relative p-1  flex items-center justify-center text-white font-semibold rounded transition-all duration-300 text-xs ${
                       currentImageIndex === index
                         ? "bg-[#0FABCA] ring-2 ring-[#0FABCA] "
                         : "bg-gray-400 hover:ring-2 hover:ring-[#0FABCA]"
@@ -155,11 +160,32 @@ const ViewCard = () => {
               </button>
             </Link>
 
-            <button
+            {/* {   stock == 'available' ?         <button
               onClick={handleAddtoCart}
               className="w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 bg-red-600 text-white rounded-md hover:bg-orange-500"
             >
               <FaShoppingCart /> Add To Cart
+            </button> :
+             <button
+              onClick={handleAddtoCart}
+              className="w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 bg-red-600 text-white rounded-md hover:bg-orange-500"
+            >
+              <FaShoppingCart /> Add To Cart
+            </button>
+            } */}
+
+            <button
+              onClick={handleAddtoCart}
+              disabled={!stock == 'available'}
+              className={`w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 rounded-md transition duration-300
+    ${
+      stock == 'available'
+        ? "bg-red-600 hover:bg-orange-500 text-white cursor-pointer"
+        : "bg-gray-400 text-gray-200 cursor-not-allowed"
+    }
+  `}
+            >
+              <FaShoppingCart /> {stock == 'available' ? "Add To Cart" : "Out of Stock"}
             </button>
           </div>
         </div>
