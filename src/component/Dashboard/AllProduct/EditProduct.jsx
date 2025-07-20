@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "../../Hook/useAxios";
@@ -17,13 +16,24 @@ const EditProduct = () => {
   const [category, setCategory] = useState("");
   const [sub, setSub] = useState("");
   const [features, setFeatures] = useState([]);
-  const [images, setImages] = useState([{ file: null, price: "", color: "" }]);
+  const [images, setImages] = useState([{ file: null, price: "", color: "", prePrice: "", itemStock: "" }]);
 
   useEffect(() => {
     if (product) {
       setCategory(product.category || "");
       setSub(product.sub || "");
       setFeatures(product.features || []);
+
+      // Set images default values from product.images
+      const defaultImages = product.images?.map((img) => ({
+        file: null, // file input can't be prefilled
+        price: img.price || "",
+        color: img.color || "",
+        prePrice: img.prePrice || "",
+        itemStock: img.itemStock || "",
+      })) || [];
+
+      setImages(defaultImages.length > 0 ? defaultImages : [{ file: null, price: "", color: "", prePrice: "", itemStock: "" }]);
     }
   }, [product]);
 
@@ -52,7 +62,7 @@ const EditProduct = () => {
   }
 
   function addImageField() {
-    setImages([...images, { file: null, price: "", color: "" }]);
+    setImages([...images, { file: null, price: "", color: "", prePrice: "", itemStock: "" }]);
   }
 
   function removeImageField(index) {
@@ -65,10 +75,11 @@ const EditProduct = () => {
     const name = e.target.name.value;
     const description = e.target.description.value;
     const stock = e.target.stock.value;
+    const sortdes = e.target.sortdes.value;
 
     const imageUploadPromises = [];
 
-    images.forEach(({ file, price, color }) => {
+    images.forEach(({ file, price, color, prePrice, itemStock }, i) => {
       if (file && price) {
         const formData = new FormData();
         formData.append("image", file);
@@ -82,9 +93,14 @@ const EditProduct = () => {
             img: imgData.data.url,
             price: parseFloat(price),
             color,
+            prePrice,
+            itemStock,
           }));
 
         imageUploadPromises.push(uploadPromise);
+      } else if (product.images[i]) {
+        // Keep old image info if no new file uploaded
+        imageUploadPromises.push(Promise.resolve(product.images[i]));
       }
     });
 
@@ -97,6 +113,7 @@ const EditProduct = () => {
         features,
         images: newImages.length > 0 ? newImages : product.images,
         stock,
+        sortdes,
       };
 
       axiosSecure.patch(`/products/${id}`, updatedData).then(() => {
@@ -230,16 +247,38 @@ const EditProduct = () => {
           ></textarea>
         </div>
 
+        <div>
+          <label className="block text-sm font-semibold text-gray-700">
+           Write Short Description
+          </label>
+          <textarea
+            name="sortdes"
+            rows="3"
+            required
+            defaultValue={product.sortdes}
+            className="w-full mt-1 p-3 border border-gray-300 rounded-lg"
+          ></textarea>
+        </div>
+
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-gray-700">
             Replace images (optional)
           </label>
 
-          {images.map((img, i) => (
+          {images && images.map((img, i) => (
             <div
               key={i}
-              className="grid grid-cols-1 md:grid-cols-3 items-center gap-3"
+              className="grid grid-cols-1 md:grid-cols-2 items-center gap-3"
             >
+              {/* Existing Image Preview */}
+              {product.images && product.images[i]?.img && img.file === null && (
+                <img
+                  src={product.images[i].img}
+                  alt={`Existing ${i}`}
+                  className="w-20 h-20 object-cover rounded border mb-1"
+                />
+              )}
+              
               <input
                 type="file"
                 accept="image/*"
@@ -253,7 +292,6 @@ const EditProduct = () => {
                 onChange={(e) => handleImageChange(i, "price", e.target.value)}
                 className="p-2 border rounded w-full"
               />
-              <div className="flex gap-1 items-center">
               <input
                 type="text"
                 placeholder="Color"
@@ -261,16 +299,29 @@ const EditProduct = () => {
                 onChange={(e) => handleImageChange(i, "color", e.target.value)}
                 className="p-2 border rounded w-full"
               />
+              <div className="flex gap-1 items-center">
+                <input
+                  type="number"
+                  placeholder="Previous Price"
+                  value={img.prePrice}
+                  onChange={(e) => handleImageChange(i, "prePrice", e.target.value)}
+                  className="p-2 border rounded w-full"
+                />
+                <input
+                  type="text"
+                  placeholder="Item Stock"
+                  value={img.itemStock}
+                  onChange={(e) => handleImageChange(i, "itemStock", e.target.value)}
+                  className="p-2 border rounded w-full"
+                />
                 <button
-                type="button"
-                onClick={() => removeImageField(i)}
-                className="px-3 py-1 bg-red-500 text-white rounded"
-              >
-                ✕
-              </button>
+                  type="button"
+                  onClick={() => removeImageField(i)}
+                  className="px-3 py-1 bg-red-500 text-white rounded"
+                >
+                  ✕
+                </button>
               </div>
-
-
             </div>
           ))}
 

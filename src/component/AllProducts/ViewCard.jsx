@@ -38,12 +38,15 @@ const ViewCard = () => {
     _id,
     features,
     stock,
+    sortdes,
   } = myProduct;
   console.log(myProduct);
 
   const imageList = images.map((item) => item.img);
   const selectedImage = imageList[currentImageIndex];
   const selectedPrice = images[currentImageIndex]?.price || 0;
+  const offerPrice = images[currentImageIndex]?.prePrice || 0;
+  const itemStock = images[currentImageIndex]?.itemStock || 0;
 
   function handleAddtoCart() {
     const cartItem = {
@@ -80,9 +83,11 @@ const ViewCard = () => {
             />
             <span
               className={`absolute top-4 left-4 px-2 py-1 text-xs font-semibold rounded 
-    ${stock == 'available'? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
+    ${
+      itemStock == "available" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+    }`}
             >
-              {stock == 'available'? "Available" : "Out of Stock"}
+              {stock == "available" ? "Available" : "Out of Stock"}
             </span>
           </div>
 
@@ -115,12 +120,26 @@ const ViewCard = () => {
           <p className="text-gray-600">
             {category} ({sub || "Only Variant"})
           </p>
-          <p className="text-gray-600">{description?.slice(0, 200)}.....</p>
+          <ul className="list-disc ml-5 text-gray-700">
+            {sortdes
+              ? sortdes
+                  ?.split(".")
+                  .map((line, index) =>
+                    line.trim() ? <li key={index}>{line.trim()}.</li> : null
+                  )
+              : "No Short Description Given"}
+          </ul>
 
-          <div className="flex items-center font-semibold justify-start gap-5">
+          <div className="flex flex-col  font-semibold justify-start gap-5">
             <div className="flex items-center gap-3 text-lg font-medium">
-              <span className="text-[#0FABCA] font-semibold flex items-center gap-2">
-                <FaCoins></FaCoins> {selectedPrice.toFixed(2)} TK
+              <span className="text-[#0FABCA] font-semibold flex items-center gap-2 text-lg">
+                <FaCoins className="text-yellow-400" />
+                {selectedPrice} TK 
+                {offerPrice && (
+                  <span className="text-red-400 italic line-through text-md font-semibold ml-3">
+                    ({offerPrice})
+                  </span>
+                )}
               </span>
             </div>
 
@@ -176,16 +195,17 @@ const ViewCard = () => {
 
             <button
               onClick={handleAddtoCart}
-              disabled={!stock == 'available'}
+              disabled={!stock == "available"}
               className={`w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 rounded-md transition duration-300
     ${
-      stock == 'available'
+      itemStock == "available"
         ? "bg-red-600 hover:bg-orange-500 text-white cursor-pointer"
         : "bg-gray-400 text-gray-200 cursor-not-allowed"
     }
   `}
             >
-              <FaShoppingCart /> {stock == 'available' ? "Add To Cart" : "Out of Stock"}
+              <FaShoppingCart />{" "}
+              {stock == "available" ? "Add To Cart" : "Out of Stock"}
             </button>
           </div>
         </div>
@@ -219,7 +239,7 @@ const ViewCard = () => {
                   <tr className="bg-gray-200">
                     <th className="p-2 border">#</th>
                     <th className="p-2 border">Feature</th>
-                    <th className="p-2 border">Value</th>
+                    <th className="p-2 border"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -243,34 +263,3 @@ const ViewCard = () => {
 
 export default ViewCard;
 
-//  <table className="min-w-full table-auto border-collapse">
-//    <tbody className="bg-white divide-y divide-gray-200 text-sm">
-//      {products.length > 0 ? (
-//        products.map((item, idx) => (
-//          <tr
-//            key={idx}
-//            className="hover:bg-blue-50 transition duration-200"
-//          >
-//            <td className="px-6 py-4 text-gray-600 font-medium">
-//              {idx + 1}
-//            </td>
-//            <td className="px-6 py-4 font-semibold text-gray-800">
-//              {item.features}
-//            </td>
-//            <td className="px-6 py-4 text-gray-700">
-//              {item.value}
-//            </td>
-//          </tr>
-//        ))
-//      ) : (
-//        <tr>
-//          <td
-//            colSpan="4"
-//            className="text-center py-6 text-gray-500 font-medium"
-//          >
-//            No items available.
-//          </td>
-//        </tr>
-//      )}
-//    </tbody>
-//  </table>

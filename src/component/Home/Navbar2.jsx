@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar2 = () => {
   const [products, isLoading , refetch] = useProducts() || [];
-  console.log(products);
+  console.log(products , 'hey');
 
   const getSubCategories = (category) => {
     const filtered = products?.filter((p) => p.category === category);

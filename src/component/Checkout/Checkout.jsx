@@ -67,7 +67,8 @@ const Checkout = () => {
           thana,
           item: cart.length,
           method,
-          vat
+          vat,
+          date: new Date().toLocaleString("en-GB")
         };
 
         // console.log(orderObj);
@@ -129,6 +130,7 @@ const Checkout = () => {
               <select
                 name="district"
                 requipink
+                required
                 onChange={(e) => setMethod(e.target.value)}
                 className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
               >
@@ -145,6 +147,7 @@ const Checkout = () => {
               <select
                 name="district"
                 requipink
+                required
                 onChange={(e) => setVat(e.target.value)}
                 className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
               >
@@ -163,6 +166,7 @@ const Checkout = () => {
                     <img
                       alt=""
                       src={pro.image}
+                      required
                       className="size-16 rounded object-cover border"
                     />
                     <p className="text-xs text-gray-600">{pro.name}</p>
@@ -260,6 +264,7 @@ const Checkout = () => {
               type="text"
               name="cusname"
               requipink
+              required
               placeholder="Your full name"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -272,6 +277,7 @@ const Checkout = () => {
               type="email"
               name="email"
               requipink
+              required
               placeholder="Gmail"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -287,6 +293,7 @@ const Checkout = () => {
               type="text"
               name="mobile"
               requipink
+              required
               placeholder="e.g. 01XXXXXXXXX"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -299,6 +306,7 @@ const Checkout = () => {
               type="text"
               name="trx"
               requipink
+              required
               placeholder="Submit Your Transaction ID"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -335,6 +343,7 @@ const Checkout = () => {
               type="text"
               name="upzila"
               requipink
+              required
               placeholder="Write Upozila Name"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -347,6 +356,7 @@ const Checkout = () => {
               type="text"
               name="thana"
               requipink
+              required
               placeholder="Write Thana Name"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
@@ -361,6 +371,7 @@ const Checkout = () => {
             name="address"
             rows="3"
             requipink
+            required
             placeholder="Your full delivery address..."
             className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
           ></textarea>
@@ -375,6 +386,7 @@ const Checkout = () => {
             name="imageTrx"
             accept="image/*"
             requipink
+            required
             className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
           />
         </div>

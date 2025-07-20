@@ -163,7 +163,7 @@ const Order = () => {
               <thead className="bg-blue-100">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                    #
+                    Date
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
                     Product
@@ -181,13 +181,13 @@ const Order = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200 text-sm">
                 {orders.length > 0 ? (
-                  orders.map((item, idx) => (
+                  orders.slice().reverse().map((item, idx) => (
                     <tr
                       key={item._id}
                       className="hover:bg-blue-50 transition duration-200"
                     >
                       <td className="px-6 py-4 text-gray-600 font-medium">
-                        {idx + 1}
+                        ({idx + 1}) {item?.date}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-col gap-1 ">

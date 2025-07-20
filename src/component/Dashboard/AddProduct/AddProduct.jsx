@@ -48,9 +48,10 @@ const AddProduct = () => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
+    const sortdes = e.target.sortdes.value;
     const imageUploadPromises = [];
 
-    images.forEach(({ file, price, color }) => {
+    images.forEach(({ file, price, color , prePrice  }) => {
       if (file && price) {
         const formData = new FormData();
         formData.append("image", file);
@@ -64,6 +65,8 @@ const AddProduct = () => {
             img: imgData.data.url,
             price: parseFloat(price),
             color,
+            prePrice,
+            itemStock: 'available'
           }));
         imageUploadPromises.push(uploadPromise);
       }
@@ -77,6 +80,7 @@ const AddProduct = () => {
         images,
         sub,
         features,
+        sortdes,
         stock: "available",
       };
 
@@ -131,7 +135,8 @@ const AddProduct = () => {
             <option value="Switch">Switch</option>
             <option value="Keycaps">Keycaps</option>
             <option value="Keyboard Accessories">Keyboard Accessories</option>
-            <option value="Mouse">Mouse</option>
+            <option value="Mouse Accessories">Mouse Accessories</option>
+            <option value="">Mouse</option>
             <option value="Other">Other</option>
           </select>
 
@@ -197,6 +202,19 @@ const AddProduct = () => {
           ></textarea>
         </div>
 
+        <div>
+          <label className="block text-sm font-semibold text-gray-700">
+           Short Description
+          </label>
+          <textarea
+            name="sortdes"
+            rows="3"
+            required
+            placeholder="Short description of the product..."
+            className="w-full mt-1 p-3 border border-gray-300 rounded-lg"
+          ></textarea>
+        </div>
+
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-gray-700">
             Upload Images with Prices
@@ -204,7 +222,7 @@ const AddProduct = () => {
           {images.map((img, i) => (
             <div
               key={i}
-              className="grid grid-cols-1 md:grid-cols-3 items-center gap-3"
+              className="grid grid-cols-1 md:grid-cols-2 items-center gap-3"
             >
               <input
                 type="file"
@@ -221,11 +239,21 @@ const AddProduct = () => {
                 className="p-2 border rounded w-full"
                 required
               />
+                              <input
+                  type="number"
+                  placeholder="Previous Price"
+                  value={img.prePrice}
+                  onChange={(e) =>
+                    handleImageChange(i, "prePrice", e.target.value)
+                  }
+                  className="p-2 border rounded w-full"
+                  required
+                />
 
               <div className="flex justify-center items-center gap-1">
                 <input
                   type="number"
-                  placeholder="Price"
+                  placeholder="Offer Price"
                   value={img.price}
                   onChange={(e) =>
                     handleImageChange(i, "price", e.target.value)

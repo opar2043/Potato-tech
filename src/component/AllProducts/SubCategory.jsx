@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Card from './Card';
+import useProducts from '../Hook/useProducts';
 
 const SubCategory = () => {
   const { sub } = useParams(); 
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [products, isLoading , refetch] = useProducts() || [];
 
-  useEffect(() => {
-    fetch('/product.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/product.json')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProducts(data);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (products.length > 0) {
