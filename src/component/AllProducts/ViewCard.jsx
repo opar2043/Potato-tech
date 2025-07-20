@@ -47,6 +47,10 @@ const ViewCard = () => {
   const selectedPrice = images[currentImageIndex]?.price || 0;
   const offerPrice = images[currentImageIndex]?.prePrice || 0;
   const itemStock = images[currentImageIndex]?.itemStock || 0;
+  console.log(itemStock);
+  console.log(selectedImage , 'image');
+
+  console.log(imageList , 'here');
 
   function handleAddtoCart() {
     const cartItem = {
@@ -87,7 +91,7 @@ const ViewCard = () => {
       itemStock == "available" ? "bg-green-500 text-white" : "bg-red-500 text-white"
     }`}
             >
-              {stock == "available" ? "Available" : "Out of Stock"}
+              {itemStock == "available" ? "Available" : "Out of Stock"}
             </span>
           </div>
 

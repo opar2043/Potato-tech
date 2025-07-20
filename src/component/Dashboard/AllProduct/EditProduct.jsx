@@ -70,61 +70,126 @@ const EditProduct = () => {
     setImages(updated);
   }
 
+  // const handleUpdate = (e) => {
+  //   e.preventDefault();
+  //   const name = e.target.name.value;
+  //   const description = e.target.description.value;
+  //   const stock = e.target.stock.value;
+  //   const sortdes = e.target.sortdes.value;
+
+  //   const imageUploadPromises = [];
+
+  //   images.forEach(({ file, price, color, prePrice, itemStock }, i) => {
+  //     if (file && price) {
+  //       const formData = new FormData();
+  //       formData.append("image", file);
+
+  //       const uploadPromise = fetch(img_api_key, {
+  //         method: "POST",
+  //         body: formData,
+  //       })
+  //         .then((res) => res.json())
+  //         .then((imgData) => ({
+  //           img: imgData.data.url,
+  //           price: parseFloat(price),
+  //           color,
+  //           prePrice,
+  //           itemStock,
+  //         }));
+
+  //       imageUploadPromises.push(uploadPromise);
+  //     } else if (product.images[i]) {
+  //       // Keep old image info if no new file uploaded
+  //       imageUploadPromises.push(Promise.resolve(product.images[i]));
+  //     }
+  //   });
+
+  //   Promise.all(imageUploadPromises).then((newImages) => {
+  //     const updatedData = {
+  //       name,
+  //       description,
+  //       category,
+  //       sub,
+  //       features,
+  //       images: newImages.length > 0 ? newImages : product.images,
+  //       stock,
+  //       sortdes,
+  //     };
+
+  //     axiosSecure.patch(`/products/${id}`, updatedData).then(() => {
+  //       Swal.fire({
+  //         title: "Product Updated",
+  //         icon: "success",
+  //       });
+  //       refetch();
+  //     });
+  //   });
+  // };
+
   const handleUpdate = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const description = e.target.description.value;
-    const stock = e.target.stock.value;
-    const sortdes = e.target.sortdes.value;
+  e.preventDefault();
+  const name = e.target.name.value;
+  const description = e.target.description.value;
+  const stock = e.target.stock.value;
+  const sortdes = e.target.sortdes.value;
 
-    const imageUploadPromises = [];
+  const imageUploadPromises = [];
 
-    images.forEach(({ file, price, color, prePrice, itemStock }, i) => {
-      if (file && price) {
-        const formData = new FormData();
-        formData.append("image", file);
+  images.forEach(({ file, price, color, prePrice, itemStock }, i) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
 
-        const uploadPromise = fetch(img_api_key, {
-          method: "POST",
-          body: formData,
+      const uploadPromise = fetch(img_api_key, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imgData) => ({
+          img: imgData.data.url,
+          price: parseFloat(price) || 0,
+          color: color || "",
+          prePrice: parseFloat(prePrice) || 0,
+          itemStock: itemStock || "",
+        }));
+
+      imageUploadPromises.push(uploadPromise);
+    } else if (product.images[i]) {
+      // Keep old image but use updated values from inputs
+      imageUploadPromises.push(
+        Promise.resolve({
+          img: product.images[i].img,
+          price: parseFloat(price) || 0,
+          color: color || "",
+          prePrice: parseFloat(prePrice) || 0,
+          itemStock: itemStock || "",
         })
-          .then((res) => res.json())
-          .then((imgData) => ({
-            img: imgData.data.url,
-            price: parseFloat(price),
-            color,
-            prePrice,
-            itemStock,
-          }));
+      );
+    }
+  });
 
-        imageUploadPromises.push(uploadPromise);
-      } else if (product.images[i]) {
-        // Keep old image info if no new file uploaded
-        imageUploadPromises.push(Promise.resolve(product.images[i]));
-      }
-    });
+  Promise.all(imageUploadPromises).then((newImages) => {
+    const updatedData = {
+      name,
+      description,
+      category,
+      sub,
+      features,
+      images: newImages.length > 0 ? newImages : product.images,
+      stock,
+      sortdes,
+    };
 
-    Promise.all(imageUploadPromises).then((newImages) => {
-      const updatedData = {
-        name,
-        description,
-        category,
-        sub,
-        features,
-        images: newImages.length > 0 ? newImages : product.images,
-        stock,
-        sortdes,
-      };
-
-      axiosSecure.patch(`/products/${id}`, updatedData).then(() => {
-        Swal.fire({
-          title: "Product Updated",
-          icon: "success",
-        });
-        refetch();
+    axiosSecure.patch(`/products/${id}`, updatedData).then(() => {
+      Swal.fire({
+        title: "Product Updated",
+        icon: "success",
       });
+      refetch();
     });
-  };
+  });
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center py-10 px-4">
@@ -262,7 +327,8 @@ const EditProduct = () => {
 
         <div className="space-y-3">
           <label className="block text-sm font-semibold text-gray-700">
-            Replace images (optional)
+            Replace images (optional)  
+            {/* why my this section price , prePrice , stock is not updated fix it */}
           </label>
 
           {images && images.map((img, i) => (
