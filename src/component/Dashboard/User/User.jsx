@@ -63,6 +63,50 @@ const User = () => {
     });
   }
 
+  function handleCustomer(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Make this Customer Again?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/users/cus/${id}`)
+          .then((res) => {
+            console.log("Response from server:", res.data);
+
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `This is Customer now`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            } else {
+              Swal.fire({
+                icon: "info",
+                title: "No changes were made.",
+              });
+            }
+          })
+          .catch((err) => {
+            console.error("Error updating premium biodata:", err);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Could not update, Please try again.",
+            });
+          });
+      }
+    });
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-4 py-10">
       <div className="max-w-6xl mx-auto">
@@ -105,11 +149,16 @@ const User = () => {
                       <td className="px-6 py-4">
                         <span
                           className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide
-                          ${
-                            user.role === "customer"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-200 text-yellow-700"
-                          }`}
+              ${
+                user.role === "customer"
+                  ? "bg-green-100 text-green-700"
+                  : user.role === "admin"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : user.role === "owner"
+                  ? "bg-red-100 text-red-700"
+                  : ""
+              }
+            `}
                         >
                           {user.role}
                         </span>
@@ -123,13 +172,26 @@ const User = () => {
                             Make Admin
                           </button>
                         </td>
-                      ) : 
-                        <div className="flex justify-center items-center mt-4">
-                          <button className="bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-4 py-1 rounded-full shadow transition">
-                         Admin
-                        </button>
-                        </div>
-                      }
+                      ) : (
+                        <>
+                          {user.role === "owner" ? (
+                            <div className="flex justify-center items-center mt-4">
+                              <button className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-1 rounded-full shadow transition">
+                                Owner
+                              </button>
+                            </div>
+                          ) : (
+<div className="flex justify-center items-center mt-4">
+  <button
+    onClick={() => handleCustomer(user._id)}
+    className="bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-4 py-1 rounded-full shadow transition"
+  >
+    Make Customer Again
+  </button>
+</div>
+                          )}
+                        </>
+                      )}
                     </tr>
                   ))
                 ) : (

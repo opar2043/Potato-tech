@@ -6,6 +6,14 @@ const Order = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orders, isLoading, refetch] = useOrder([]) || [];
 
+const cartItems = orders?.flatMap(order =>
+  order.cart?.map(item => ({
+    name: item.name,
+    image: item.image
+  }))
+) || [];
+
+console.log(cartItems);
   // useEffect(() => {
   //   fetch("/order.json")
   //     .then((res) => res.json())
@@ -15,23 +23,9 @@ const Order = () => {
   // }, []);
 
   function handleView(orderObj) {
-    setSelectedOrder(orderObj); // ✅ Set selected order
+    setSelectedOrder(orderObj); 
     document.getElementById("my_modal_3").showModal();
   }
-
-  //   cusname,
-  // mobile,
-  // district,
-  // address,
-  // imageTrx: data.data?.url || "",
-  // image,
-  // trx,
-  // email,
-  // division,
-  // upzila,
-  // totalTaka,
-  // name,
-  // thana
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-10 px-4">
@@ -48,111 +42,87 @@ const Order = () => {
               </button>
             </form>
 
-            {selectedOrder && (
-              <section>
-                <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-                  <div className="mx-auto max-w-3xl">
-                    <header className="text-center">
-                      <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
-                        Order Summary
-                      </h1>
-                    </header>
+{selectedOrder && (
+  <section className="max-h-[90vh] overflow-y-auto">
+    <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mx-auto max-w-4xl bg-white rounded-xl shadow-lg p-6">
+        <header className="text-center mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-700">
+            🧾 Order Summary
+          </h1>
+        </header>
 
-                    <div className="mt-8">
-                      <ul className="space-y-4">
-                        <li className="flex items-center gap-4">
-                          <img
-                            src={selectedOrder.imageTrx}
-                            alt="Transaction"
-                            className="size-16 rounded-sm object-cover"
-                          />
+        {/* Cart Items Grid */}
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 mb-5">
+          {selectedOrder.cart.map((item, i) => (
+            <div
+              key={i}
+              className="flex items-center bg-blue-50 rounded-lg p-4 shadow-md"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-16 h-16 object-cover rounded mr-4 border"
+              />
+              <div>
+                <h3 className="font-semibold text-gray-800">{item.name}</h3>
 
-                          <div>
-                            <h3 className=" text-gray-900">
-                              {selectedOrder.name}
-                            </h3>
-                            <dl className="mt-0.5 space-y-px text-[12px] text-gray-600">
-                              <div>
-                                <dt className="inline">Customer:</dt>
-                                <dd className="inline">
-                                  {" "}
-                                  {selectedOrder.cusname || "N/A"}
-                                </dd>
-                              </div>
-                              <div>
-                                <dt className="inline">Transaction:</dt>
-                                <dd className="inline font-semibold bg-gray-400/35 border border-gray-300 ml-1 rounded-md py-1 px-3 text-gray-700">
-                                  {" "}
-                                  {selectedOrder.trx}
-                                </dd>
-                              </div>
-                              <div>
-                                <dt className="inline">Methode:</dt>
-                                <dd className="inline  ml-1 rounded-md py-1 px-3 text-gray-700">
-                                  {" "}
-                                  {selectedOrder.method}
-                                </dd>
-                              </div>
-                            </dl>
-                          </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                          <div className="divider bg-black"></div>
+        {/* Transaction & Customer Info */}
+        <div className="grid sm:grid-cols-2 gap-6 text-sm text-gray-700">
+          <div className="space-y-2">
+            <p>
+              <strong>Customer:</strong> {selectedOrder.cusname}
+            </p>
+            <p>
+              <strong>Mobile:</strong> {selectedOrder.mobile}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedOrder.email}
+            </p>
+            <p>
+              <strong>Address:</strong>{" "}
+              {selectedOrder.address}, {selectedOrder.upzila},{" "}
+              {selectedOrder.district}
+            </p>
+          </div>
 
-                          <div className="flex flex-1 items-center justify-end gap-2">
-                            <span className="text-sm text-gray-700">
-                              Quantity: {selectedOrder.item || 1}
-                            </span>
-                            <span className="text-xs text-gray-700">
-                              {selectedOrder.totalTaka || 0} TK
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
+          <div className="space-y-2">
+            <p>
+              <strong>Payment Method:</strong> {selectedOrder.method}
+            </p>
+            <p>
+              <strong>Transaction ID:</strong>{" "}
+              <span className="bg-gray-200 px-2 py-1 rounded text-gray-800 font-mono">
+                {selectedOrder.trx}
+              </span>
+            </p>
+            <p>
+              <strong>Total Items:</strong> {selectedOrder.item}
+            </p>
+            <p>
+              <strong>Total Amount:</strong>{" "}
+              <span className="text-lg font-semibold text-green-600">
+                {selectedOrder.totalTaka} TK
+              </span>
+            </p>
+          </div>
+        </div>
 
-                      <div className="mt-8 flex justify-end border-t border-gray-100 pt-8 gap-3">
-                        <div>
-                          <img src={selectedOrder.imageTrx} alt="" />
-                        </div>
+        <div className="mt-6 flex justify-end">
+          <span className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
+             Payment Received
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
 
-                        <div className="w-screen max-w-lg space-y-4">
-                          <dl className="space-y-0.5 text-sm text-gray-700">
-                            <div className="flex justify-between">
-                              <dt>Customer</dt>
-                              <dd>{selectedOrder.cusname || "N/A"}</dd>
-                            </div>
-                            <div className="flex justify-between">
-                              <dt>Mobile</dt>
-                              <dd>{selectedOrder.mobile}</dd>
-                            </div>
-                            <div className="flex justify-between">
-                              <dt>Email</dt>
-                              <dd>{selectedOrder.email || "N/A"}</dd>
-                            </div>
-                            <div className="flex justify-between">
-                              <dt>Address</dt>
-                              <dd>
-                                {selectedOrder.address}, {selectedOrder.upzila},{" "}
-                                {selectedOrder.district}
-                              </dd>
-                            </div>
-                            <div className="flex justify-between !text-base font-medium">
-                              <dt>Total</dt>
-                              <dd>{selectedOrder.totalTaka || 0} TK</dd>
-                            </div>
-                          </dl>
-
-                          <div className="flex justify-end">
-                            <p className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
-                              Payment Recieved
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
           </div>
         </dialog>
 
@@ -163,10 +133,10 @@ const Order = () => {
               <thead className="bg-blue-100">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                    Date
+                    Product
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
-                    Product
+                    Date
                   </th>
                   <th className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase">
                     Trx No.
@@ -186,21 +156,20 @@ const Order = () => {
                       key={item._id}
                       className="hover:bg-blue-50 transition duration-200"
                     >
-                      <td className="px-6 py-4 text-gray-600 font-medium">
-                        ({idx + 1}) {item?.date}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col gap-1 ">
+                                            <td className="px-6 py-4">
+                        <div className="flex items-center gap-1 ">
+                          ({idx + 1}.)
                           <img
                             src={item.imageTrx}
                             alt="Transaction"
                             className="w-14 h-14 rounded object-cover border border-gray-300 shadow-sm"
                           />
-                          <p className="font-semibold text-xs text-gray-800">
-                            {item.name}
-                          </p>
                         </div>
                       </td>
+                      <td className="px-6 py-4 text-gray-600 font-medium">
+                         {item?.date}
+                      </td>
+
                       <td className="font-semibold text-gray-800">
                         {item.trx}
                       </td>

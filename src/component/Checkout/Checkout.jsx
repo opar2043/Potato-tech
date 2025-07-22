@@ -14,10 +14,11 @@ const Checkout = () => {
   // const [product, setProduct] = useState([]);
   const [division, setDivision] = useState("Dhaka");
   const [method, setMethod] = useState("bkash");
-  const [vat , setVat] = useState(80);
-  // console.log(vat);
+  const [vat, setVat] = useState(80);
+  // console.log(method);
   const [cart, isLoading, refetch] = useCart() || [];
-
+  console.log(cart);
+  const cod = method == "cod";
   // useEffect(() => {
   //   fetch("/addcart.json")
   //     .then((res) => res.json())
@@ -26,10 +27,11 @@ const Checkout = () => {
   //     });
   // }, [id]);
 
-  const myProduct = cart?.find((pro) => pro._id == id) || {};
-  const { name, price, image } = myProduct || {};
-  const totalmoney= cart?.reduce((total, item) => total + item.price, 0) || 0;
-  const totalTaka = totalmoney + parseInt(vat) ;
+
+  const totalmoney = cart?.reduce((total, item) => total + item.price, 0) || 0;
+  const totalTaka = totalmoney + parseInt(vat);
+
+  
   function handleAdd(e) {
     e.preventDefault();
     const cusname = e.target.cusname.value;
@@ -57,18 +59,17 @@ const Checkout = () => {
           district,
           address,
           imageTrx: data.data?.url || "",
-          image,
           trx,
           email,
           division,
           upzila,
           totalTaka,
-          name,
           thana,
           item: cart.length,
           method,
           vat,
-          date: new Date().toLocaleString("en-GB")
+          date: new Date().toLocaleString("en-GB"),
+          cart  
         };
 
         // console.log(orderObj);
@@ -132,7 +133,7 @@ const Checkout = () => {
                 requipink
                 required
                 onChange={(e) => setMethod(e.target.value)}
-                className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
+                className="w-full mt-1 p-3 text-sm border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
               >
                 <option value="">Select Payment Method</option>
                 <option value="bkash">bKash / Nagad</option>
@@ -149,9 +150,9 @@ const Checkout = () => {
                 requipink
                 required
                 onChange={(e) => setVat(e.target.value)}
-                className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
+                className="w-full mt-1 p-3 text-sm border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
               >
-                <option value={'80'}>In Side Dhaka (80 TK)</option>
+                <option value={"80"}>In Side Dhaka (80 TK)</option>
                 <option value="150">Out Side Dhaka (150 TK)</option>
                 <option value="120">Close to Dhaka (120 TK)</option>
               </select>
@@ -378,17 +379,21 @@ const Checkout = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700">
-            Upload Image ( Payment Screenshot)
-          </label>
-          <input
-            type="file"
-            name="imageTrx"
-            accept="image/*"
-            requipink
-            required
-            className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
-          />
+          {!cod && (
+            <>
+              <label className="block text-sm font-semibold text-gray-700">
+                Upload Image ( Payment Screenshot)
+              </label>
+              <input
+                type="file"
+                name="imageTrx"
+                accept="image/*"
+                requipink
+                required
+                className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
+              />
+            </>
+          )}
         </div>
 
         <div>

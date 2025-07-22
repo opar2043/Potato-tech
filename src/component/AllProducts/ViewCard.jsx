@@ -28,6 +28,8 @@ const ViewCard = () => {
   //     });
   // }, [id]);
 
+  
+
   const myProduct = products.find((pro) => pro._id == id) || {};
   const {
     name,
@@ -48,9 +50,9 @@ const ViewCard = () => {
   const offerPrice = images[currentImageIndex]?.prePrice || 0;
   const itemStock = images[currentImageIndex]?.itemStock || 0;
   console.log(itemStock);
-  console.log(selectedImage , 'image');
+  console.log(selectedImage, "image");
 
-  console.log(imageList , 'here');
+  console.log(imageList, "here");
 
   function handleAddtoCart() {
     const cartItem = {
@@ -88,7 +90,9 @@ const ViewCard = () => {
             <span
               className={`absolute top-4 left-4 px-2 py-1 text-xs font-semibold rounded 
     ${
-      itemStock == "available" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+      itemStock == "available"
+        ? "bg-green-500 text-white"
+        : "bg-red-500 text-white"
     }`}
             >
               {itemStock == "available" ? "Available" : "Out of Stock"}
@@ -121,6 +125,25 @@ const ViewCard = () => {
         <div className="relative flex flex-col justify-center gap-4 ">
           <h1 className="text-3xl font-semibold text-gray-800">{name} </h1>
 
+            {/* Color Changes Dynamically */}
+            <div>
+              <div className="flex gap-2 justify-start flex-row flex-wrap">
+                {images.map((item, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`relative p-1  flex items-center justify-center text-white font-semibold rounded transition-all duration-300 text-xs ${
+                      currentImageIndex === index
+                        ? "bg-[#0FABCA] ring-2 ring-[#0FABCA] "
+                        : "bg-gray-400 hover:ring-2 hover:ring-[#0FABCA]"
+                    }`}
+                  >
+                    {item.color}
+                  </button>
+                ))}
+              </div>
+            </div>
+
           <p className="text-gray-600">
             {category} ({sub || "Only Variant"})
           </p>
@@ -138,7 +161,7 @@ const ViewCard = () => {
             <div className="flex items-center gap-3 text-lg font-medium">
               <span className="text-[#0FABCA] font-semibold flex items-center gap-2 text-lg">
                 <FaCoins className="text-yellow-400" />
-                {selectedPrice} TK 
+                {selectedPrice} TK
                 {offerPrice && (
                   <span className="text-red-400 italic line-through text-md font-semibold ml-3">
                     ({offerPrice})
@@ -156,24 +179,7 @@ const ViewCard = () => {
             </div>
           </div>
           <div>
-            {/* Color Changes Dynamically */}
-            <div>
-              <div className="flex gap-2 justify-start flex-row">
-                {images.map((item, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`relative p-1  flex items-center justify-center text-white font-semibold rounded transition-all duration-300 text-xs ${
-                      currentImageIndex === index
-                        ? "bg-[#0FABCA] ring-2 ring-[#0FABCA] "
-                        : "bg-gray-400 hover:ring-2 hover:ring-[#0FABCA]"
-                    }`}
-                  >
-                    {item.color}
-                  </button>
-                ))}
-              </div>
-            </div>
+
           </div>
 
           <div className="flex flex-col md:flex-row gap-3">
@@ -183,34 +189,19 @@ const ViewCard = () => {
               </button>
             </Link>
 
-            {/* {   stock == 'available' ?         <button
+            {   itemStock == 'available' ?         <button
               onClick={handleAddtoCart}
-              className="w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 bg-red-600 text-white rounded-md hover:bg-orange-500"
+              className="bg-green-600 hover:bg-green-500 text-white cursor-pointer w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 rounded-md transition duration-300 "
             >
               <FaShoppingCart /> Add To Cart
             </button> :
              <button
-              onClick={handleAddtoCart}
-              className="w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 bg-red-600 text-white rounded-md hover:bg-orange-500"
+              
+              className="w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 rounded-md transition duration-300 bg-gray-400 text-gray-200 cursor-not-allowed"
             >
-              <FaShoppingCart /> Add To Cart
+              <FaShoppingCart /> Out of stock
             </button>
-            } */}
-
-            <button
-              onClick={handleAddtoCart}
-              disabled={!stock == "available"}
-              className={`w-full flex items-center gap-3 justify-center mt-6 px-6 py-3 rounded-md transition duration-300
-    ${
-      itemStock == "available"
-        ? "bg-red-600 hover:bg-orange-500 text-white cursor-pointer"
-        : "bg-gray-400 text-gray-200 cursor-not-allowed"
-    }
-  `}
-            >
-              <FaShoppingCart />{" "}
-              {stock == "available" ? "Add To Cart" : "Out of Stock"}
-            </button>
+            }
           </div>
         </div>
       </div>
@@ -266,4 +257,3 @@ const ViewCard = () => {
 };
 
 export default ViewCard;
-

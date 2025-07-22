@@ -12,7 +12,7 @@ const Navbar2 = () => {
     return uniqueSubs;
   };
 
-  const categories = ["Keyboard", "Mouse", "Switch", "Keycaps", "Keyboard Accessories"];
+  const categories = ["Keyboard", "Mouse", "Switch", "Keycaps", "Keyboard Accessories" , "Mouse Accessories"];
 
   if (!products || products.length === 0) return "";
 

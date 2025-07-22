@@ -11,7 +11,7 @@ const useAdmin = () => {
   const currentUser = users?.find((u) => u.email === email);
 
   // Check if the current user has admin role
-  const admin = currentUser?.role === "admin";
+  const admin = currentUser?.role === "admin" || currentUser?.role === "owner";
 
   return { admin };
 };

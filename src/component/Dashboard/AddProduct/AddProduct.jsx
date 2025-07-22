@@ -155,6 +155,14 @@ const AddProduct = () => {
                 <option value="Leobog">Leobog</option>
               </>
             )}
+            {category === "Mouse Accessories" && (
+              <>
+                <option value="Switch">Switch</option>
+                <option value="Wheel">Wheel</option>
+                <option value="Grip">Grip</option>
+                <option value="Skate">Skate</option>
+              </>
+            )}
             {category === "Switch" && (
               <>
                 <option value="Tactile">Tactile</option>
