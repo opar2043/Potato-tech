@@ -15,35 +15,57 @@ const Checkout = () => {
   const [division, setDivision] = useState("Dhaka");
   const [method, setMethod] = useState("bkash");
   const [vat, setVat] = useState(80);
-  // console.log(method);
   const [cart, isLoading, refetch] = useCart() || [];
   console.log(cart);
   const cod = method == "cod";
-  // useEffect(() => {
-  //   fetch("/addcart.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setProduct(data);
-  //     });
-  // }, [id]);
 
 
   const totalmoney = cart?.reduce((total, item) => total + item.price, 0) || 0;
   const totalTaka = totalmoney + parseInt(vat);
 
-  
-  function handleAdd(e) {
-    e.preventDefault();
-    const cusname = e.target.cusname.value;
-    const mobile = e.target.mobile.value;
-    const district = e.target.district.value;
-    const trx = e.target.trx.value;
-    const email = e.target.email.value;
-    const upzila = e.target.upzila.value;
-    const thana = e.target.thana.value;
-    const address = e.target.address.value;
-    const imageTrx = e.target.imageTrx.files[0];
 
+  function handleAdd(e) {
+  e.preventDefault();
+  const cusname = e.target.cusname.value;
+  const mobile = e.target.mobile.value;
+  const district = e.target.district.value;
+  const trx =
+    method === "cod" ? "Cash on Delivery" : e.target.trx.value || "N/A";
+  const email = e.target.email.value;
+  const upzila = e.target.upzila.value;
+  const thana = e.target.thana.value;
+  const address = e.target.address.value;
+  const imageTrx = e.target.imageTrx?.files?.[0] || "";
+
+  const orderObj = {
+    cusname,
+    mobile,
+    district,
+    address,
+    imageTrx: "",
+    trx ,
+    email,
+    division,
+    upzila,
+    totalTaka,
+    thana,
+    item: cart.length,
+    method,
+    vat,
+    date: new Date().toLocaleString("en-GB"),
+    cart,
+  };
+
+  if (method === "cod") {
+    // Skip image upload
+    axiosSecure.post("/orders", orderObj).then(() => {
+      Swal.fire({
+        title: "Order Placed",
+        icon: "success",
+      });
+    });
+  } else {
+    // Upload image and then submit order
     const data = new FormData();
     data.append("image", imageTrx);
 
@@ -53,26 +75,7 @@ const Checkout = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const orderObj = {
-          cusname,
-          mobile,
-          district,
-          address,
-          imageTrx: data.data?.url || "",
-          trx,
-          email,
-          division,
-          upzila,
-          totalTaka,
-          thana,
-          item: cart.length,
-          method,
-          vat,
-          date: new Date().toLocaleString("en-GB"),
-          cart  
-        };
-
-        // console.log(orderObj);
+        orderObj.imageTrx = data.data?.url || "";
 
         axiosSecure.post("/orders", orderObj).then(() => {
           Swal.fire({
@@ -82,6 +85,7 @@ const Checkout = () => {
         });
       });
   }
+}
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -122,6 +126,7 @@ const Checkout = () => {
           <h2 className="text-lg font-semibold text-pink-700">
             Make Payment First then Fill The Form
           </h2>
+          <p className="text-sm text-gray-600">(if Any Issue , Massage Us in Whatsapp or call 01905045531)</p>
           {/* Payable Area */}
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-1">
             <div className="w-full">
@@ -136,7 +141,7 @@ const Checkout = () => {
                 className="w-full mt-1 p-3 text-sm border border-pink-300 rounded-lg shadow-sm focus:ring-1 focus:ring-pink-400 focus:outline-none"
               >
                 <option value="">Select Payment Method</option>
-                <option value="bkash">bKash / Nagad</option>
+                <option value="bkash">bKash / Nagad (Send Money)</option>
                 <option value="bank">Bank </option>
                 <option value="cod">C.O.D</option>
               </select>
@@ -189,19 +194,22 @@ const Checkout = () => {
             <p className="text-center text-red-600">Cart is Empty</p>
           )}
           <div className="border-t border-pink-200 pt-2"></div>
-          <div className="flex justify-between text-gray-700 font-medium">
+          <div className="flex justify-between text-sm text-gray-700 font-medium">
             <p> Amount:</p>
             <p>{totalmoney?.toFixed(2)} TK</p>
           </div>
 
           <div className="border-t border-pink-200 pt-2"></div>
-          <div className="flex justify-between text-gray-700 font-medium">
+          <div className="flex justify-between text-sm text-gray-700 font-medium">
             <p>Payable Amount With Charge:</p>
             <p>{totalmoney ? totalTaka?.toFixed(2) : 0} TK</p>
           </div>
 
-          <div className="space-y-4 text-center">
-            {method && method == "bkash" ? (
+   <div className="space-y-4 text-center">
+
+{
+  !cod && <div>
+           {method && method == "bkash" ? (
               <p
                 onClick={() => {
                   navigator.clipboard.writeText("01905045531");
@@ -234,9 +242,11 @@ const Checkout = () => {
                 140000000000000000000002
               </p>
             )}
+</div>
+}
 
             <p className="block rounded bg-pink-600 px-5 py-3 text-sm text-white hover:bg-pink-700">
-              Make Payment
+              {cod ? "Fill Up The Form Bellow" : "Pay Frist"}
             </p>
             <Link
               to={"/allproducts"}
@@ -253,7 +263,7 @@ const Checkout = () => {
         className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-xl space-y-6 border border-pink-200"
       >
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-4">
-          Payment Page
+          Billing Details
         </h2>
 
         <div className="flex flex-col md:flex-row gap-1">
@@ -299,7 +309,7 @@ const Checkout = () => {
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
           </div>
-          <div className="w-full">
+{    !cod &&      <div className="w-full">
             <label className="block text-sm font-semibold text-gray-700">
               Transaction ID
             </label>
@@ -311,7 +321,7 @@ const Checkout = () => {
               placeholder="Submit Your Transaction ID"
               className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
-          </div>
+          </div>}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-1">
@@ -377,9 +387,9 @@ const Checkout = () => {
             className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
           ></textarea>
         </div>
-
+{(method == 'bank' || method == 'bkash') &&
         <div>
-          {!cod && (
+           
             <>
               <label className="block text-sm font-semibold text-gray-700">
                 Upload Image ( Payment Screenshot)
@@ -388,14 +398,13 @@ const Checkout = () => {
                 type="file"
                 name="imageTrx"
                 accept="image/*"
-                requipink
-                required
+                
                 className="w-full mt-1 p-3 border border-pink-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none"
               />
             </>
-          )}
+          
         </div>
-
+}
         <div>
           <button
             type="submit"
